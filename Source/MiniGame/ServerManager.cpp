@@ -8,20 +8,30 @@
 #include "SocketSubsystem.h"
 #include "Protocol.h"
 
+
+ServerManager::~ServerManager()
+{
+    ShutDown();
+}
+
 void ServerManager::Initialize()
 {
 }
 
-void ServerManager::ConnectToServer()
+bool ServerManager::ConnectToServer()
 {
 	/// 서버에 connect 요청
 	m_socket = ISocketSubsystem::Get( PLATFORM_SOCKETSUBSYSTEM )->CreateSocket( NAME_Stream, TEXT( "default" ) );
-	if ( !m_socket )
-		return;
+    if (!m_socket)
+    {
+        return false;
+    }
 
 	FIPv4Address ip;
 	if ( !FIPv4Address::Parse( SERVERIP, ip ) )
-		return;
+    {
+        return false;
+    }
 
 	TSharedRef<FInternetAddr> address = ISocketSubsystem::Get( PLATFORM_SOCKETSUBSYSTEM )->CreateInternetAddr();
 	address->SetIp( ip.Value );
@@ -30,10 +40,22 @@ void ServerManager::ConnectToServer()
 	bool connect = m_socket->Connect( *address );
 
 	if ( !connect )
-		return;
+    {
+        return false;
+    }
 
 	m_socket->SetNonBlocking( true );
 	m_socket->SetNoDelay( true );
+
+    return true;
+}
+
+void ServerManager::ShutDown()
+{
+    if (m_socket)
+    {
+        m_socket->Close();
+    }
 }
 
 void ServerManager::RecvPacket()
@@ -50,7 +72,7 @@ void ServerManager::RecvPacket()
 
     while ( leftData > 0 || init_come )
     {
-        bool returnValue = m_socket->Recv( ( uint8* )( packet ), leftData, bytesSents );
+        bool returnValue = m_socket->Recv( ( uint8* )( packet ), InitPacket::MAX_BUFFERSIZE - 1, bytesSents );
         if ( !returnValue )
         {
             return;
@@ -71,11 +93,11 @@ void ServerManager::RecvPacket()
         {
             leftData -= bytesSents;
             packet += bytesSents;
+        }
 
-            if ( leftData == 0 )
-            {
-                ProcessPacket( buf );
-            }
+        if (leftData == 0)
+        {
+            ProcessPacket(buf);
         }
     }
 }
@@ -111,6 +133,14 @@ void ServerManager::ProcessPacket( char* packet )
 
     switch ( packet[ 1 ] )
     {
+    case ServerToClient::FIRSTINFO:
+    {
+        Packet::FirstPlayer p = *reinterpret_cast<Packet::FirstPlayer*> (packet);
+        p.owner;
+        
+        int a = 1;
+    }
+    break;
     case ServerToClient::LOGON_OK:
     {
         Packet::LoginResult p = *reinterpret_cast< Packet::LoginResult* > ( packet );
@@ -125,6 +155,7 @@ void ServerManager::ProcessPacket( char* packet )
     case ServerToClient::GAMESTART:
     {
         Packet::GameStart p = *reinterpret_cast< Packet::GameStart* > ( packet );
+        p;
 
     }
     break;

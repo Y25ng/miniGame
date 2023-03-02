@@ -9,11 +9,11 @@
 #include "Kismet/KismetMathLibrary.h" // 선형보간을 위한 헤더
 #include "MiniGameCharacter.h" // 프로젝트 디폴트 Character 헤더
 #include "MiniGameGameMode.h" // 프로젝트 디폴트 GameMode 헤더
-#include "Runtime/Engine/Classes/Engine/World.h"
-#include "Components/UniformGridPanel.h"
+#include "Runtime/Engine/Classes/Engine/World.h" // 현재 World 반환을 위한 헤더
+#include "Components/UniformGridPanel.h" // Widget Blueprint의 UniformGirdPanel 객체 반환을 위한 헤더
 #include "Widgets/Images/SImage.h"
-#include "Blueprint/UserWidget.h"
-#include "MainUI.h"
+#include "Blueprint/UserWidget.h" // Widget Blueprint 내 컴포넌트와의 Bind를 위한 UserWidget 클래스 헤더
+#include "MainUI.h" // UserWidget을 상속받는 게임의 Main UI 클래스
 
 
 // Sets default values
@@ -37,6 +37,7 @@ AColorBottom::AColorBottom()
 	if( m_StaticMesh )
 		m_StaticMesh->SetupAttachment( RootComponent );
 
+	// 타일 색깔 변화를 위해 사용할 머터리얼 
 	static ConstructorHelpers::FObjectFinder< UMaterial > MaterialAsset_White( TEXT( "/Game/StarterContent/Materials/White" ) );
 	static ConstructorHelpers::FObjectFinder< UMaterial > MaterialAsset_Red( TEXT( "/Game/StarterContent/Materials/Red" ) );
 	static ConstructorHelpers::FObjectFinder< UMaterial > MaterialAsset_Blue( TEXT( "/Game/StarterContent/Materials/Blue" ) );
@@ -62,7 +63,6 @@ AColorBottom::AColorBottom()
 	else
 		m_Material_Map.Add(EColorNum::YELLOW) = nullptr;
 
-	m_CurrentColor = EColorNum::WHITE;
 	// m_bElevate = false;
 	// m_BottomDeltaTime = 0.0f;
 }
@@ -77,6 +77,8 @@ void AColorBottom::BeginPlay()
 	{
 		// 타일의 초기 색깔을 흰색으로 설정
 		m_StaticMesh->SetMaterial(0, m_Material_Map[EColorNum::WHITE]);
+		// 타일의 현재 색깔을 하얀색으로 지정
+		m_CurrentColor = EColorNum::WHITE;
 	}
 
 	// m_OriginLocation = GetActorLocation();
@@ -92,27 +94,30 @@ void AColorBottom::Tick( float DeltaTime )
 
 }
 
+// 타일이 다른 객체와 충돌이 발생했을 때 자동으로 호출
 void AColorBottom::NotifyActorBeginOverlap( AActor* OtherActor )
 {
 	AMiniGameCharacter* tempCharacter = Cast< AMiniGameCharacter >( OtherActor );
 	int32 tempColor = tempCharacter->GetColor();
 
-	if ( tempCharacter && (tempColor != m_CurrentColor) )
+	if ( (tempCharacter == nullptr) || (tempColor == m_CurrentColor) )
+		return;
+
+	// 타일 색깔 변경 및 현재 색깔 상태 할당
+	ChangeColor( tempColor );
+	m_CurrentColor = tempColor;	
+
+	UWorld* world = GetWorld();
+
+	if (world)
 	{
-		ChangeColor( tempColor );
-		m_CurrentColor = tempColor;	
-
-		UWorld* world = GetWorld();
-
-		if (world)
+		AMiniGameGameMode* gameMode = Cast< AMiniGameGameMode >(world->GetAuthGameMode());
+		if (gameMode)
 		{
-			AMiniGameGameMode* gameMode = Cast< AMiniGameGameMode >(world->GetAuthGameMode());
-			if (gameMode)
-			{
-			}
-
 		}
+
 	}
+
 
 	/*
 	if ( m_bElevate == false )

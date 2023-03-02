@@ -6,7 +6,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-
 #include "ColorBottom.generated.h"
 
 
@@ -68,17 +67,13 @@ public:
 	// 충돌체에 오버랩이 끝날시 호출
 	// virtual void NotifyActorEndOverlap(AActor* OtherActor)override;
 
-
 	// 타일 색깔을 변경해줄 함수
 	void ChangeColor( int32 colorNum );
 
 	// void OnElevate();
-
 	// void OffElevate();
-
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 };

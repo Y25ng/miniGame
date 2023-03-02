@@ -4,7 +4,7 @@ using UnrealBuildTool;
 
 public class MiniGame : ModuleRules
 {
-	public MiniGame(ReadOnlyTargetRules Target) : base(Target)
+	public MiniGame( ReadOnlyTargetRules Target ) : base( Target )
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 

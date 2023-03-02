@@ -15,7 +15,7 @@ AMiniGameAIController::AMiniGameAIController(FObjectInitializer const& object_in
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	behavior_tree_Comp = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorComp")); // 비헤이비어트리 객체 생성
+	behavior_tree_Comp = CreateDefaultSubobject< UBehaviorTreeComponent>(TEXT("BehaviorComp")); // 비헤이비어트리 객체 생성
 	blackboard = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackboardComp")); // 블랙보드 객체 생성
 
 	// Setup_Perception_System();  // AI Pawn 기본 능력에 대한 초기화
@@ -30,6 +30,7 @@ void AMiniGameAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 }
+
 
 
 void AMiniGameAIController::OnPossess(APawn* InPawn) // Pawn이 AI 컨트롤러를 가지게 하는 함수
@@ -47,6 +48,7 @@ void AMiniGameAIController::OnPossess(APawn* InPawn) // Pawn이 AI 컨트롤러를 가�
 		behavior_tree_Comp->StartTree(*(Bot->BotBehavior)); // 비헤이비어트리 작동 시작
 	}
 }
+
 
 FRotator AMiniGameAIController::GetControlRotation() const // 현재 회전값 반환
 {

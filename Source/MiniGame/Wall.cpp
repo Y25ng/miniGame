@@ -16,17 +16,19 @@ AWall::AWall()
 	// box �浹ü
 	m_BoxCollision = CreateDefaultSubobject< UBoxComponent >(TEXT("BoxObj"));
 
-	if (m_BoxCollision)
+	if ( m_BoxCollision )
 	{
-		m_BoxCollision->SetupAttachment(RootComponent);
+		m_BoxCollision->SetupAttachment( RootComponent );
 		RootComponent = m_BoxCollision;
 	}
 
 	// mesh
 	m_StaticMesh = CreateDefaultSubobject< UStaticMeshComponent >(TEXT("MeshObj"));
 
-	if (m_StaticMesh)
-		m_StaticMesh->SetupAttachment(RootComponent);
+	if ( m_StaticMesh )
+	{
+		m_StaticMesh->SetupAttachment( RootComponent );
+	}
 }
 
 void AWall::BeginPlay()
@@ -36,7 +38,7 @@ void AWall::BeginPlay()
 
 
 // Called every frame
-void AWall::Tick(float DeltaTime)
+void AWall::Tick( float DeltaTime )
 {
 	Super::Tick(DeltaTime);
 }

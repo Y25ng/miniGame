@@ -44,10 +44,7 @@ public:
 
 	// 충돌체에 오버랩 발생시 호출
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor)override;
-
-	virtual void NotifyHit(class UPrimitiveComponent* MyComp, class AActor* Other, 
-		class UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, 
-		FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit) override;
+	virtual void NotifyHit( class UPrimitiveComponent* MyComp, class AActor* Other, class UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit ) override;
 
 protected:
 

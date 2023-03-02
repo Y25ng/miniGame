@@ -8,16 +8,16 @@
 
 
 class UUniformGridPanel;
-/**
- * 
- */
+
+
 UCLASS()
 class MINIGAME_API UMainUI : public UUserWidget
 {
 	GENERATED_BODY()
 
 private:
-	UPROPERTY(meta = (BindWidget))
+	// 미니맵을 보여줄 컴포넌트
+	UPROPERTY( meta = ( BindWidget ) )
 		UUniformGridPanel* miniMap_GridPanel = nullptr;	
 
 public:

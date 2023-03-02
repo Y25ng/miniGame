@@ -83,16 +83,14 @@ void AMiniGameCharacter::SetupPlayerInputComponent( class UInputComponent* Playe
 void AMiniGameCharacter::NotifyActorBeginOverlap( AActor* OtherActor )
 {
 	AMiniGameCharacter* otherCharacter = nullptr;
-	otherCharacter = Cast< AMiniGameCharacter >(OtherActor);
+	otherCharacter = Cast< AMiniGameCharacter >( OtherActor );
 }
 
-void AMiniGameCharacter::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other, 
-	UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, 
-	FVector NormalImpulse, const FHitResult& Hit)
+void AMiniGameCharacter::NotifyHit( UPrimitiveComponent* MyComp, AActor* Other, UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit )
 {
-	Super::NotifyHit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
+	Super::NotifyHit( MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit );
 
-	if (Other->IsA(AWall::StaticClass()))
+	if ( Other->IsA( AWall::StaticClass() ) )
 	{
 		// 충돌 시간
 		float HitTime = Hit.Time;
@@ -117,26 +115,26 @@ void AMiniGameCharacter::NotifyHit(UPrimitiveComponent* MyComp, AActor* Other,
 		FVector ReflectedVelocity = PreviousVelocity - 2.0f * DotProduct * tempHitNormal;
 
 		// 새로운 속도 벡터 설정
-		float ImpulseStrength = 5000.0f;
+		float ImpulseStrength = 10000.0f;
 		GetCharacterMovement()->AddImpulse(ReflectedVelocity * ImpulseStrength, true);
 
 		return;
 	}
 
 	AMiniGameCharacter* otherCharacter = nullptr;
-	otherCharacter = Cast< AMiniGameCharacter >(Other);
+	otherCharacter = Cast< AMiniGameCharacter >( Other );
 
 	if (otherCharacter)
 	{
-		// 충돌한 위치에서 튕겨져 나가는 방향을 계산합니다.
-		FVector AwayFromOther = (GetActorLocation() - otherCharacter->GetActorLocation()).GetSafeNormal();
+		// 충돌한 위치에서 튕겨져 나가는 방향을 계산
+		FVector AwayFromOther = ( GetActorLocation() - otherCharacter->GetActorLocation() ).GetSafeNormal();
 
-		// 튕겨져 나가는 힘의 크기를 설정합니다.
+		// 튕겨져 나가는 힘의 크기를 설정
 		float BounceForceMagnitude = 5000.f;
 
-		// 힘을 계산하여 AddImpulse 함수를 사용하여 튕겨져 나가도록 처리합니다.
+		// 힘을 계산하여 AddImpulse 함수를 사용하여 튕겨져 나가도록 처리
 		FVector BounceForce = AwayFromOther * BounceForceMagnitude;
-		GetCharacterMovement()->AddImpulse(BounceForce, true);
+		GetCharacterMovement()->AddImpulse( BounceForce, true );
 	}
 }
 

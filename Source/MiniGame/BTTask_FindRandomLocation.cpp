@@ -11,30 +11,29 @@
 #include "MiniGameAIController.h"
 
 
-
-UBTTask_FindRandomLocation::UBTTask_FindRandomLocation(FObjectInitializer const& object_initializer)
+UBTTask_FindRandomLocation::UBTTask_FindRandomLocation( FObjectInitializer const& object_initializer )
 {
-	NodeName = TEXT("Find Random Location"); // 비헤이비어트리에서의 노드 이름을 지정
+	NodeName = TEXT( "Find Random Location" ); // 비헤이비어트리에서의 노드 이름을 지정
 }
 
 
-EBTNodeResult::Type UBTTask_FindRandomLocation::ExecuteTask(UBehaviorTreeComponent& owner_Comp, uint8* NodeMemory)
+EBTNodeResult::Type UBTTask_FindRandomLocation::ExecuteTask( UBehaviorTreeComponent& owner_Comp, uint8* NodeMemory )
 {
-	auto const cont = Cast<AMiniGameAIController>(owner_Comp.GetAIOwner()); // AI Controller
+	auto const cont = Cast< AMiniGameAIController >( owner_Comp.GetAIOwner() ); // AI Controller
 	auto const npc = cont->GetPawn(); // AI Controller의 조종을 받는 Pawn
 
 	FVector const origin = npc->GetActorLocation(); // npc Pawn의 위치값
 	FNavLocation loc;
 
-	UNavigationSystemV1* const nav_sys = UNavigationSystemV1::GetCurrent(GetWorld());
+	UNavigationSystemV1* const nav_sys = UNavigationSystemV1::GetCurrent( GetWorld() );
 	
-	bool tempFlag = nav_sys->GetRandomPointInNavigableRadius(origin, search_radius, loc, nullptr);
+	bool tempFlag = nav_sys->GetRandomPointInNavigableRadius( origin, search_radius, loc, nullptr );
 
-	if (tempFlag)
+	if ( tempFlag )
 	{
-		cont->get_blackboard()->SetValueAsVector(bb_keys::target_location, loc.Location); // 이동할 위치 지정
+		cont->get_blackboard()->SetValueAsVector( bb_keys::target_location, loc.Location ); // 이동할 위치 지정
 	}
 
-	FinishLatentTask(owner_Comp, EBTNodeResult::Succeeded);
+	FinishLatentTask( owner_Comp, EBTNodeResult::Succeeded );
 	return EBTNodeResult::Succeeded;
 }

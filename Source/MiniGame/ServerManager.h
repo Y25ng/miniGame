@@ -9,14 +9,16 @@ class ServerManager
 private:
 	FSocket* m_socket;
 
-private:
+public:
 	static ServerManager& GetInstance()
 	{
 		static ServerManager instance;
 		return instance;
 	}
+	private:
+
 	ServerManager() = default;
-	~ServerManager() = default;
+	~ServerManager();
 public:
 	ServerManager(ServerManager const&) = delete;
 	ServerManager& operator=(ServerManager const&) = delete;
@@ -26,7 +28,8 @@ public:
 
 	// Init
 	void Initialize();
-	void ConnectToServer();
+	bool ConnectToServer();
+	void ShutDown();
 
 	// 패킷 송수신 함수
 	void RecvPacket();
