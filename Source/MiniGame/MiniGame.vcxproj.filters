@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\MiniGame.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{D9EE4939-32B1-40A0-9D69-F7BCDC482719}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\MiniGame.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\MiniGameEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.gitignore" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{8C58E7EB-5A7D-4597-8D89-0D0543092C65}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\MiniGame">
+      <UniqueIdentifier>{7E1904FE-3995-4F2B-8D9A-1CBEA9F83F83}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\MiniGame\MiniGame.Build.cs">
+      <Filter>Source\MiniGame</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\MiniGame\MiniGame.cpp">
+      <Filter>Source\MiniGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MiniGame\MiniGame.h">
+      <Filter>Source\MiniGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MiniGame\MiniGameGameMode.cpp">
+      <Filter>Source\MiniGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MiniGame\MiniGameGameMode.h">
+      <Filter>Source\MiniGame</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\MiniGame\AI">
+      <UniqueIdentifier>{99b12794-65fe-4fcf-916c-6e160480a8b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame\Actor">
+      <UniqueIdentifier>{e2af6140-bffb-41c8-8a60-0f80c565048b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame\Character">
+      <UniqueIdentifier>{266041a6-174b-45bc-99ec-8c458844755f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame\Server">
+      <UniqueIdentifier>{bdb7c621-e238-4f4a-b302-63531e23454f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame\UI">
+      <UniqueIdentifier>{0d64f656-f7ac-4369-8598-a1e8d1155ff0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\MiniGame\blackboard_keys.h">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\BTTask_FindRandomLocation.h">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\ColorBottom.h">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\MiniGameAIController.h">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\MiniGameCharacter.h">
+      <Filter>Source\MiniGame\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\MiniGameBot.h">
+      <Filter>Source\MiniGame\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\Protocol.h">
+      <Filter>Source\MiniGame\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\ServerManager.h">
+      <Filter>Source\MiniGame\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\MainUI.h">
+      <Filter>Source\MiniGame\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\Wall.h">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\MiniGame\BTTask_FindRandomLocation.cpp">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\ColorBottom.cpp">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\MiniGameAIController.cpp">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\MiniGameCharacter.cpp">
+      <Filter>Source\MiniGame\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\MiniGameBot.cpp">
+      <Filter>Source\MiniGame\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\ServerManager.cpp">
+      <Filter>Source\MiniGame\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\MainUI.cpp">
+      <Filter>Source\MiniGame\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\Wall.cpp">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
