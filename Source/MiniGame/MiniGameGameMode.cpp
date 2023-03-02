@@ -20,11 +20,12 @@ AMiniGameGameMode::AMiniGameGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 
-	
+	/*
 	if (ServerManager::GetInstance().ConnectToServer() == true)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Connect Success"));
 	}
+	*/
 	
 	
 	
@@ -55,5 +56,5 @@ void AMiniGameGameMode::Tick( float deltaTime )
 {
 	Super::Tick( deltaTime );
 
-	ServerManager::GetInstance().RecvPacket();
+	// ServerManager::GetInstance().RecvPacket();
 }

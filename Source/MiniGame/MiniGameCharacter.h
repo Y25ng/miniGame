@@ -25,6 +25,8 @@ private:
 	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = ( AllowPrivateAccess = "true" ) )
 		class UCameraComponent* FollowCamera;
 
+	// 캐릭터의 최대 속도를 할당 받음 //
+	// UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true" ) )
 
 public:
 	AMiniGameCharacter();

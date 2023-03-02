@@ -162,7 +162,6 @@ void ServerManager::ProcessPacket( char* packet )
     case ServerToClient::MOVE:
     {
         Packet::Move p = *reinterpret_cast< Packet::Move* > ( packet );
-        p.owner
     }
     break;
     default:
