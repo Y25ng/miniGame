@@ -1,24 +1,38 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Protocol.h"
+
 
 #define SERVERIP "172.28.35.240"
 #define SERVERPORT 9000
+
+
+class AMiniGameCharacter;
+
+
 class ServerManager
 {
 private:
 	FSocket* m_socket;
-
+	char m_buf[InitPacket::MAX_BUFFERSIZE];
+	unsigned char m_previousPacketSize;
 public:
 	static ServerManager& GetInstance()
 	{
 		static ServerManager instance;
 		return instance;
 	}
-	private:
 
-	ServerManager() = default;
+private:
+
+	ServerManager();
 	~ServerManager();
+
+	AMiniGameCharacter* character;
+	AMiniGameCharacter* character2;
+	AMiniGameCharacter* character3;
+
 public:
 	ServerManager(ServerManager const&) = delete;
 	ServerManager& operator=(ServerManager const&) = delete;
@@ -35,4 +49,13 @@ public:
 	void RecvPacket();
 	void SendPacket( char datainfo, void* packet );
 	void ProcessPacket( char* packet );
+
+	AMiniGameCharacter* GetCharacter() { return character; }
+	void SetCharacter(AMiniGameCharacter* varCharacter) { character = varCharacter; }
+
+	AMiniGameCharacter* GetCharacter2() { return character2; }
+	void SetCharacter2(AMiniGameCharacter* varCharacter) { character2 = varCharacter; }
+
+	AMiniGameCharacter* GetCharacter3() { return character3; }
+	void SetCharacter3(AMiniGameCharacter* varCharacter) { character3 = varCharacter; }
 };

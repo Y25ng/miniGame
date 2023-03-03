@@ -50,6 +50,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 		int32 m_Color;
 
+	UPROPERTY(EditAnywhere)
+		FName NickName;
+
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
 
@@ -76,6 +79,9 @@ protected:
 
 	/** Handler for when a touch input stops. */
 	void TouchStopped( ETouchIndex::Type FingerIndex, FVector Location );
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	// APawn interface

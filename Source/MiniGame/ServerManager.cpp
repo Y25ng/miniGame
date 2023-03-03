@@ -6,12 +6,18 @@
 #include "Networking.h"
 #include "Sockets.h"
 #include "SocketSubsystem.h"
-#include "Protocol.h"
+#include "UserManager.h"
+#include "MiniGameCharacter.h"
 
+
+ServerManager::ServerManager()
+    :m_buf(), m_previousPacketSize(0), character(nullptr), character2(nullptr), character3(nullptr)
+{
+   
+}
 
 ServerManager::~ServerManager()
 {
-    ShutDown();
 }
 
 void ServerManager::Initialize()
@@ -57,49 +63,60 @@ void ServerManager::ShutDown()
         m_socket->Close();
     }
 }
-
+// 10 7 7
 void ServerManager::RecvPacket()
 {
     if ( !m_socket )
         return;
 
-    char buf[ InitPacket::MAX_BUFFERSIZE ] = { NULL, };
-    char* packet = buf;
+    char buf2[InitPacket::MAX_BUFFERSIZE];
+    char* packet = m_buf;
     int32 bytesSents = 0;
     int32 packetSize = 0;
-    bool init_come = true;
-    int32 leftData = 2;
+    bool initCome = true;
 
-    while ( leftData > 0 || init_come )
+    bool returnValue = m_socket->Recv((uint8*)(buf2), InitPacket::MAX_BUFFERSIZE - 1, bytesSents);
+    if ( !returnValue )
     {
-        bool returnValue = m_socket->Recv( ( uint8* )( packet ), InitPacket::MAX_BUFFERSIZE - 1, bytesSents );
-        if ( !returnValue )
-        {
-            return;
-        }
-        ///받은 데이터 없음
-        else if ( bytesSents == 0 )
-        {
-            break;
-        }
+        return;
+    }
+    // 받은 데이터 없음
+    else if ( bytesSents == 0 )
+    {
+        return;
+    }
 
-        if ( init_come )
+    // 이전에 받았던 패킷이 있을 경우 그 뒤에, 이전에 받았던 패킷이 없으면 m_previousPacketSize 는 0
+    memcpy_s(m_buf + m_previousPacketSize, sizeof(m_buf), buf2, sizeof(buf2));
+
+    do
+    {
+        // 받아올 데이터
+        packetSize = packet[0];
+        
+        // 받아올 패킷 데이터 크기보다 받은 데이터가 많을 경우 -> 패킷을 조립해서 ProcessPacket 수행
+        if (packetSize <= bytesSents)
         {
-            leftData = buf[ 0 ] - bytesSents;
-            packet += bytesSents;
-            init_come = false;
+            char assemble[InitPacket::MAX_BUFFERSIZE] = { NULL, };
+            memcpy_s(assemble, sizeof(assemble), m_buf, packetSize);
+            ProcessPacket(assemble);
+
+            packet += packetSize;
+            bytesSents -= packetSize;
+            m_previousPacketSize = 0;
+
+            if (bytesSents != 0)
+                memcpy_s(m_buf, sizeof(m_buf), packet, bytesSents);
+            else
+                ZeroMemory(m_buf, sizeof(m_buf));
         }
+        // 패킷 데이터 크기가 받은 데이터보다 많음 -> 패킷을 더 받아야 함
         else
         {
-            leftData -= bytesSents;
             packet += bytesSents;
+            m_previousPacketSize = bytesSents;
         }
-
-        if (leftData == 0)
-        {
-            ProcessPacket(buf);
-        }
-    }
+    } while (bytesSents > 0);
 }
 
 void ServerManager::SendPacket( char datainfo, void* packet )
@@ -137,8 +154,12 @@ void ServerManager::ProcessPacket( char* packet )
     {
         Packet::FirstPlayer p = *reinterpret_cast<Packet::FirstPlayer*> (packet);
         p.owner;
-        
-        int a = 1;
+
+        if (character == nullptr)
+            break;
+
+        UserManager::GetInstance().PushPlayer(p.owner, character);
+
     }
     break;
     case ServerToClient::LOGON_OK:
@@ -155,8 +176,19 @@ void ServerManager::ProcessPacket( char* packet )
     case ServerToClient::GAMESTART:
     {
         Packet::GameStart p = *reinterpret_cast< Packet::GameStart* > ( packet );
-        p;
+        int32 num = UserManager::GetInstance().GetPlayerMap().Num();
 
+        if (UserManager::GetInstance().GetPlayerMap().Find(p.owner))
+            break;
+
+        if (num == 1)
+        {
+            UserManager::GetInstance().PushPlayer(p.owner, character2);
+        }
+        else if(num == 2)
+        {
+            UserManager::GetInstance().PushPlayer(p.owner, character3);
+        }
     }
     break;
     case ServerToClient::MOVE:

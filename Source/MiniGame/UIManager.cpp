@@ -4,6 +4,7 @@
 #include "UIManager.h"
 #include "UObject/ConstructorHelpers.h"
 #include "MainUI.h"
+#include "LogInUI.h"
 
 UIManager::UIManager()
 {
@@ -16,20 +17,39 @@ UIManager::~UIManager()
 
 void UIManager::CreateMainUI( UWorld* world )
 {
-	static ConstructorHelpers::FClassFinder< UUserWidget > Main_UI(TEXT("/Game/StarterContent/Blueprints/BP_MainUI"));
+	if ( world == nullptr )
+		return;
 
-	if (Main_UI.Succeeded())
+	FString path = TEXT("/Game/StarterContent/Blueprints/BP_MainUI");
+	MainUIClass = ConstructorHelpersInternal::FindOrLoadClass( path, UMainUI::StaticClass());
+	
+	if (MainUIClass == nullptr )
+		return;
+
+	MainUIWidget = CreateWidget< UUserWidget >( world, MainUIClass );
+	
+	if ( Cast< UMainUI >( MainUIWidget))
 	{
-		MainUIClass = Main_UI.Class;
+		Cast< UMainUI >(MainUIWidget)->CreateMainUI();
 	}
+}
 
-	if ( MainUIClass )
-	{
-		MainUI = CreateWidget< UUserWidget >( world, MainUIClass );
-	}
+void UIManager::CreateLogInUI(UWorld* world)
+{
+	if (world == nullptr)
+		return;
 
-	if ( MainUI && Cast< UMainUI >(MainUI) )
+	FString path = TEXT("/Game/StarterContent/Blueprints/BP_LogInUI");
+
+	LogInUIClass = ConstructorHelpersInternal::FindOrLoadClass(path, ULogInUI::StaticClass());
+
+	if (LogInUIClass == nullptr)
+		return;
+
+	LogInUIWidget = CreateWidget< UUserWidget >(world, LogInUIClass);
+
+	if (Cast< ULogInUI >(LogInUIWidget))
 	{
-		( Cast< UMainUI >(MainUI) )->AddToViewport();
+		Cast< ULogInUI >(LogInUIWidget)->CreateLogInUI();
 	}
 }

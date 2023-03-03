@@ -32,8 +32,12 @@ private:
 	TSubclassOf<class UUserWidget>MainUI_WidgetBPClass;
 	UUserWidget* MainUI_Widget;
 
+	bool bCreateDefaultPawn;
+	bool bServerConnect;
+
 public:
 	AMiniGameGameMode();
+	~AMiniGameGameMode();
 
 	virtual void Tick(float deltaTime) override;
 

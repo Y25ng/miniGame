@@ -24,4 +24,7 @@ public:
 	void NativeConstruct() override;
 
 	UUniformGridPanel* GetMiniMap() { return miniMap_GridPanel; }
+
+	// 메인 UI를 생성하고 화면에 출력하는 함수
+	void CreateMainUI();
 };

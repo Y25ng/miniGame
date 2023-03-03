@@ -11,6 +11,8 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Wall.h"
+#include "UserManager.h"
+#include "ServerManager.h"
 
 
 AMiniGameCharacter::AMiniGameCharacter()
@@ -49,6 +51,28 @@ AMiniGameCharacter::AMiniGameCharacter()
 
 	m_Color = EColorNum::RED;
 }
+
+void AMiniGameCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
+void AMiniGameCharacter::BeginPlay()
+{
+	if (NickName.ToString() == TEXT("Default"))
+	{
+		ServerManager::GetInstance().SetCharacter(this);
+	}
+	else if (NickName.ToString() == TEXT("second"))
+	{
+		ServerManager::GetInstance().SetCharacter2(this);
+	}
+	else if (NickName.ToString() == TEXT("third"))
+	{
+		ServerManager::GetInstance().SetCharacter3(this);
+	}
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 // Input

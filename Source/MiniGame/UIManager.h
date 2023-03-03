@@ -8,6 +8,7 @@
 
 class UUserWidget;
 class UMainUI;
+class ULogInUI;
 class UWorld;
 
 
@@ -22,13 +23,19 @@ public:
 	}
 
 	void CreateMainUI( UWorld* world );
+	void CreateLogInUI(UWorld* world);
 
+	TSubclassOf< UUserWidget > GetMainUIClass() { return MainUIClass; }
 
 private:
 	UIManager();
 	~UIManager();
 
+	// 어떤 컨테이너로 관리할지 고민해보기
 	TSubclassOf< UUserWidget > MainUIClass;
-	UUserWidget* MainUI;
+	UUserWidget* MainUIWidget;
+
+	TSubclassOf< UUserWidget > LogInUIClass;
+	UUserWidget* LogInUIWidget;
 
 };

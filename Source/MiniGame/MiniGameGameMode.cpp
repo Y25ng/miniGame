@@ -21,14 +21,9 @@ AMiniGameGameMode::AMiniGameGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 
-	/*
-	if (ServerManager::GetInstance().ConnectToServer() == true)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Connect Success"));
-	}
-	*/
-	
-	
+	bCreateDefaultPawn = false;
+	bServerConnect = false;
+
 	/*
 	static ConstructorHelpers::FClassFinder<UUserWidget> Main_UI(TEXT("/Game/StarterContent/Blueprints/BP_MainUI"));
 
@@ -54,15 +49,36 @@ AMiniGameGameMode::AMiniGameGameMode()
 	*/
 }
 
+AMiniGameGameMode::~AMiniGameGameMode()
+{
+	ServerManager::GetInstance().ShutDown();
+}
+
 void AMiniGameGameMode::Tick( float deltaTime )
 {
-	Super::Tick( deltaTime );
+	Super::Tick(deltaTime);
 
-	// ServerManager::GetInstance().RecvPacket();
+
+	if( !bCreateDefaultPawn && GetDefaultPawnClassForController(GetWorld()->GetFirstPlayerController()) != nullptr )
+	{
+		ServerManager::GetInstance().ConnectToServer();
+		bCreateDefaultPawn = true;
+		bServerConnect = true;
+	}
+
+	if (bServerConnect)
+	{
+		ServerManager::GetInstance().RecvPacket();
+	}
+
 }
 
 void AMiniGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	UIManager::GetInstance().CreateMainUI( GetWorld() );
+	
+	// UIManager::GetInstance().CreateMainUI( GetWorld() );
+
+	UIManager::GetInstance().CreateLogInUI(GetWorld());
 }
+
