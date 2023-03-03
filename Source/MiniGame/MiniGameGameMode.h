@@ -36,7 +36,9 @@ public:
 	AMiniGameGameMode();
 
 	virtual void Tick(float deltaTime) override;
-	UUserWidget* GetMainUI() { return MainUI_Widget; }
+
+protected:
+	virtual void BeginPlay() override;
 
 };
 

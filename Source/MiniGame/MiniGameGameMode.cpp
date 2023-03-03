@@ -4,6 +4,7 @@
 #include "MiniGameGameMode.h"
 #include "MiniGameCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "UIManager.h"
 #include "MainUI.h"
 #include "ServerManager.h"
 
@@ -28,7 +29,7 @@ AMiniGameGameMode::AMiniGameGameMode()
 	*/
 	
 	
-	
+	/*
 	static ConstructorHelpers::FClassFinder<UUserWidget> Main_UI(TEXT("/Game/StarterContent/Blueprints/BP_MainUI"));
 
 	if (Main_UI.Succeeded())
@@ -50,6 +51,7 @@ AMiniGameGameMode::AMiniGameGameMode()
 			MainUI_Widget_temp->AddToViewport();
 		}
 	}
+	*/
 }
 
 void AMiniGameGameMode::Tick( float deltaTime )
@@ -57,4 +59,10 @@ void AMiniGameGameMode::Tick( float deltaTime )
 	Super::Tick( deltaTime );
 
 	// ServerManager::GetInstance().RecvPacket();
+}
+
+void AMiniGameGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+	UIManager::GetInstance().CreateMainUI( GetWorld() );
 }
