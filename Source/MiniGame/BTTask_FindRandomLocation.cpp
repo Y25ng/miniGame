@@ -2,8 +2,8 @@
 
 
 #include "BTTask_FindRandomLocation.h"
-#include "BehaviorTree/BTNode.h"
-#include "BehaviorTree/BehaviorTreeComponent.h"
+#include "BehaviorTree/BTNode.h" 
+#include "BehaviorTree/BehaviorTreeComponent.h" 
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyAllTypes.h"
 #include "NavigationSystem.h"
@@ -15,7 +15,6 @@ UBTTask_FindRandomLocation::UBTTask_FindRandomLocation( FObjectInitializer const
 {
 	NodeName = TEXT( "Find Random Location" ); // 비헤이비어트리에서의 노드 이름을 지정
 }
-
 
 EBTNodeResult::Type UBTTask_FindRandomLocation::ExecuteTask( UBehaviorTreeComponent& owner_Comp, uint8* NodeMemory )
 {

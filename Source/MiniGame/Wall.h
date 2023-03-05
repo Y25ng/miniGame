@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #pragma once
+
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
@@ -19,7 +21,7 @@ class MINIGAME_API AWall : public AActor
 
 private:
 	// mesh
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY( VisibleAnywhere )
 		UStaticMeshComponent* m_StaticMesh;
 
 	// box �浹ü
@@ -36,6 +38,6 @@ protected:
 
 public:	
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	virtual void Tick( float DeltaTime ) override;
 
 };

@@ -3,11 +3,14 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 #include "BehaviorTree/Tasks/BTTask_BlackboardBase.h"
 #include "BTTask_FindRandomLocation.generated.h"
 
+
 class UBehaviorTreeComponent;
+
 
 UCLASS(Blueprintable)
 class MINIGAME_API UBTTask_FindRandomLocation : public UBTTask_BlackboardBase
@@ -20,4 +23,3 @@ public:
 
 	float search_radius = 750.0f;
 };
-

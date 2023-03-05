@@ -6,7 +6,10 @@
 #include "UObject/ConstructorHelpers.h"
 #include "UIManager.h"
 #include "MainUI.h"
-#include "ServerManager.h"
+#include "Kismet/GameplayStatics.h"
+#include "Camera/CameraComponent.h" // 카메라 헤더
+#include "CameraForMinimap.h"
+// #include "ServerManager.h"
 
 
 AMiniGameGameMode::AMiniGameGameMode()
@@ -14,15 +17,17 @@ AMiniGameGameMode::AMiniGameGameMode()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	// set default pawn class to our Blueprinted character
-	static ConstructorHelpers::FClassFinder< APawn > PlayerPawnBPClass( TEXT( "/Game/ThirdPersonCPP/Blueprints/ThirdPersonCharacter" ) );
+	static ConstructorHelpers::FClassFinder< APawn > PlayerPawnBPClass( TEXT( "/Game/ThirdPersonCPP/Blueprints/BP_ThirdPersonCharacter_Default" ) );
 
 	if ( PlayerPawnBPClass.Class != NULL )
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 
+	
 	bCreateDefaultPawn = false;
 	bServerConnect = false;
+	
 
 	/*
 	static ConstructorHelpers::FClassFinder<UUserWidget> Main_UI(TEXT("/Game/StarterContent/Blueprints/BP_MainUI"));
@@ -51,14 +56,23 @@ AMiniGameGameMode::AMiniGameGameMode()
 
 AMiniGameGameMode::~AMiniGameGameMode()
 {
-	ServerManager::GetInstance().ShutDown();
+	// ServerManager::GetInstance().ShutDown();
 }
 
 void AMiniGameGameMode::Tick( float deltaTime )
 {
 	Super::Tick(deltaTime);
 
+	/*
+	UUserWidget* tempMainUI = ( UIManager::GetInstance() ).GetWidget( EUIPathKey::MAIN );
 
+	if ( Cast< UMainUI >(tempMainUI) )
+	{
+		Cast< UMainUI >( tempMainUI )->UpdateMiniMap( m_CameraActor );
+	}
+	*/
+
+	/*
 	if( !bCreateDefaultPawn && GetDefaultPawnClassForController(GetWorld()->GetFirstPlayerController()) != nullptr )
 	{
 		ServerManager::GetInstance().ConnectToServer();
@@ -70,6 +84,7 @@ void AMiniGameGameMode::Tick( float deltaTime )
 	{
 		ServerManager::GetInstance().RecvPacket();
 	}
+	*/
 
 }
 
@@ -77,8 +92,6 @@ void AMiniGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	// UIManager::GetInstance().CreateMainUI( GetWorld() );
-
-	UIManager::GetInstance().CreateLogInUI(GetWorld());
+	( UIManager::GetInstance() ).CreateUI< UMainUI >( GetWorld(), EUIPathKey::MAIN );
 }
 

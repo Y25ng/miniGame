@@ -3,7 +3,8 @@
 
 #include "LogInUI.h"
 
-void ULogInUI::CreateLogInUI()
+
+void ULogInUI::CreateUI()
 {
 	AddToViewport();
 }

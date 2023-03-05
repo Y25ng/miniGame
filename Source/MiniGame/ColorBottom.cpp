@@ -10,8 +10,6 @@
 #include "MiniGameCharacter.h" // 프로젝트 디폴트 Character 헤더
 #include "MiniGameGameMode.h" // 프로젝트 디폴트 GameMode 헤더
 #include "Runtime/Engine/Classes/Engine/World.h" // 현재 World 반환을 위한 헤더
-#include "Components/UniformGridPanel.h" // Widget Blueprint의 UniformGirdPanel 객체 반환을 위한 헤더
-#include "Widgets/Images/SImage.h"
 #include "Blueprint/UserWidget.h" // Widget Blueprint 내 컴포넌트와의 Bind를 위한 UserWidget 클래스 헤더
 #include "MainUI.h" // UserWidget을 상속받는 게임의 Main UI 클래스
 
@@ -43,6 +41,7 @@ AColorBottom::AColorBottom()
 	static ConstructorHelpers::FObjectFinder< UMaterial > MaterialAsset_Blue( TEXT( "/Game/StarterContent/Materials/Blue" ) );
 	static ConstructorHelpers::FObjectFinder< UMaterial > MaterialAsset_Yellow(TEXT("/Game/StarterContent/Materials/Yellow"));
 
+	// key, value( int32, material )쌍으로 컨테이너에 원소 추가
 	if ( MaterialAsset_White.Succeeded() )
 		m_Material_Map.Add( EColorNum::WHITE ) = MaterialAsset_White.Object;
 	else
@@ -91,22 +90,26 @@ void AColorBottom::Tick( float DeltaTime )
 	Super::Tick( DeltaTime );
 
 	// m_BottomDeltaTime += DeltaTime;
-
 }
 
 // 타일이 다른 객체와 충돌이 발생했을 때 자동으로 호출
 void AColorBottom::NotifyActorBeginOverlap( AActor* OtherActor )
 {
 	AMiniGameCharacter* tempCharacter = Cast< AMiniGameCharacter >( OtherActor );
-	int32 tempColor = tempCharacter->GetColor();
 
-	if ( (tempCharacter == nullptr) || (tempColor == m_CurrentColor) )
+	if ( tempCharacter == nullptr )
+		return;
+
+	int32 tempCharacterColor = tempCharacter->GetColor();
+
+	if ( tempCharacterColor == m_CurrentColor )
 		return;
 
 	// 타일 색깔 변경 및 현재 색깔 상태 할당
-	ChangeColor( tempColor );
-	m_CurrentColor = tempColor;	
+	ChangeColor( tempCharacterColor );
+	m_CurrentColor = tempCharacterColor;
 
+	/*
 	UWorld* world = GetWorld();
 
 	if (world)
@@ -116,8 +119,7 @@ void AColorBottom::NotifyActorBeginOverlap( AActor* OtherActor )
 		{
 		}
 
-	}
-
+	}*/
 
 	/*
 	if ( m_bElevate == false )
@@ -183,4 +185,3 @@ void AColorBottom::OffElevate()
 	}
 }
 */
-

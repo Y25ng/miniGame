@@ -4,8 +4,8 @@
 #include "MiniGameCharacter.h"
 #include "MiniGameGameMode.h" // 프로젝트 디폴트 GameMode 헤더
 #include "HeadMountedDisplayFunctionLibrary.h"
-#include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
+#include "Camera/CameraComponent.h" // 카메라 헤더
+#include "Components/CapsuleComponent.h" // 캐릭터 충돌체에 사용할 캡슐 헤더
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
@@ -48,29 +48,32 @@ AMiniGameCharacter::AMiniGameCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
-
-	m_Color = EColorNum::RED;
 }
 
+/*
 void AMiniGameCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
+*/
 
 void AMiniGameCharacter::BeginPlay()
 {
-	if (NickName.ToString() == TEXT("Default"))
+	Super::BeginPlay();
+
+	if (NickName.ToString() == TEXT("Default")) // 플레이어가 조종할 캐릭터
 	{
 		ServerManager::GetInstance().SetCharacter(this);
 	}
-	else if (NickName.ToString() == TEXT("second"))
+	else if (NickName.ToString() == TEXT("second")) // 플레이어와 대결할 캐릭터1
 	{
 		ServerManager::GetInstance().SetCharacter2(this);
 	}
-	else if (NickName.ToString() == TEXT("third"))
+	else if (NickName.ToString() == TEXT("third")) // 플레이오아 대결할 캐릭터2
 	{
 		ServerManager::GetInstance().SetCharacter3(this);
 	}
+
 }
 
 

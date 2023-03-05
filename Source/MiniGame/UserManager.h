@@ -2,6 +2,7 @@
 
 #pragma once
 
+
 #include "CoreMinimal.h"
 
 
@@ -27,3 +28,4 @@ public:
 	void PushPlayer( int32 key, AMiniGameCharacter* character );
 	const TMap< int32, AMiniGameCharacter* >& GetPlayerMap() { return PlayerMap; }
 };
+

@@ -1,4 +1,7 @@
+
+
 #pragma once
+
 
 #include "CoreMinimal.h"
 #include "Protocol.h"
@@ -29,9 +32,11 @@ private:
 	ServerManager();
 	~ServerManager();
 
+	
 	AMiniGameCharacter* character;
 	AMiniGameCharacter* character2;
 	AMiniGameCharacter* character3;
+	
 
 public:
 	ServerManager(ServerManager const&) = delete;
@@ -50,6 +55,7 @@ public:
 	void SendPacket( char datainfo, void* packet );
 	void ProcessPacket( char* packet );
 
+	
 	AMiniGameCharacter* GetCharacter() { return character; }
 	void SetCharacter(AMiniGameCharacter* varCharacter) { character = varCharacter; }
 
@@ -58,4 +64,5 @@ public:
 
 	AMiniGameCharacter* GetCharacter3() { return character3; }
 	void SetCharacter3(AMiniGameCharacter* varCharacter) { character3 = varCharacter; }
+	
 };

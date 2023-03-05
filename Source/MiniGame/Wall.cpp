@@ -7,6 +7,7 @@
 #include "MiniGameCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
+
 // Sets default values
 AWall::AWall()
 {
@@ -36,10 +37,8 @@ void AWall::BeginPlay()
 	Super::BeginPlay();
 }
 
-
 // Called every frame
 void AWall::Tick( float DeltaTime )
 {
 	Super::Tick(DeltaTime);
 }
-

@@ -7,7 +7,6 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/Blackboard/BlackboardKeyAllTypes.h"
 #include "Perception/AIPerceptionStimuliSourceComponent.h"
-
 #include "MiniGameBot.h"
 
 
@@ -31,8 +30,6 @@ void AMiniGameAIController::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 }
 
-
-
 void AMiniGameAIController::OnPossess(APawn* InPawn) // Pawn이 AI 컨트롤러를 가지게 하는 함수
 {
 	Super::OnPossess(InPawn);
@@ -49,7 +46,6 @@ void AMiniGameAIController::OnPossess(APawn* InPawn) // Pawn이 AI 컨트롤러를 가�
 	}
 }
 
-
 FRotator AMiniGameAIController::GetControlRotation() const // 현재 회전값 반환
 {
 	if (GetPawn() == nullptr)
@@ -62,4 +58,3 @@ UBlackboardComponent* AMiniGameAIController::get_blackboard() const // 블랙보드 
 {
 	return blackboard;
 }
-

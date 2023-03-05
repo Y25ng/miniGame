@@ -13,7 +13,6 @@
 ServerManager::ServerManager()
     :m_buf(), m_previousPacketSize(0), character(nullptr), character2(nullptr), character3(nullptr)
 {
-   
 }
 
 ServerManager::~ServerManager()
@@ -159,7 +158,7 @@ void ServerManager::ProcessPacket( char* packet )
             break;
 
         UserManager::GetInstance().PushPlayer(p.owner, character);
-
+        
     }
     break;
     case ServerToClient::LOGON_OK:
@@ -175,6 +174,7 @@ void ServerManager::ProcessPacket( char* packet )
     }
     case ServerToClient::GAMESTART:
     {
+  
         Packet::GameStart p = *reinterpret_cast< Packet::GameStart* > ( packet );
         int32 num = UserManager::GetInstance().GetPlayerMap().Num();
 
@@ -189,6 +189,7 @@ void ServerManager::ProcessPacket( char* packet )
         {
             UserManager::GetInstance().PushPlayer(p.owner, character3);
         }
+      
     }
     break;
     case ServerToClient::MOVE:

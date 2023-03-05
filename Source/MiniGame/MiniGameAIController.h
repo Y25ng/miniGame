@@ -1,19 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #pragma once
+
 
 #include "CoreMinimal.h"
 #include "AIController.h"
 #include "MiniGameAIController.generated.h"
+
 
 class UBehaviorTree;
 class UBehaviorTreeComponent;
 class UBlackboardComponent;
 // class UAISenseConfig_Sight;
 
-/**
- * 
- */
+
 UCLASS(config = Game)
 class MINIGAME_API AMiniGameAIController : public AAIController
 {

@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #pragma once
+
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
@@ -10,6 +12,14 @@ class UUserWidget;
 class UMainUI;
 class ULogInUI;
 class UWorld;
+
+
+enum EUIPathKey
+{
+	LOGIN = 0,
+	MAIN = 1,
+	ENDPATH = 2,
+};
 
 
 class MINIGAME_API UIManager
@@ -22,20 +32,44 @@ public:
 		return instance;
 	}
 
-	void CreateMainUI( UWorld* world );
-	void CreateLogInUI(UWorld* world);
-
-	TSubclassOf< UUserWidget > GetMainUIClass() { return MainUIClass; }
 
 private:
 	UIManager();
 	~UIManager();
 
-	// 어떤 컨테이너로 관리할지 고민해보기
-	TSubclassOf< UUserWidget > MainUIClass;
-	UUserWidget* MainUIWidget;
+	TMap<int32, FString > m_UIClassPath_Map;
+	TMap<int32, std::pair< TSubclassOf< UUserWidget >, UUserWidget* > > m_UI_Map;
 
-	TSubclassOf< UUserWidget > LogInUIClass;
-	UUserWidget* LogInUIWidget;
+public:
 
+	UUserWidget* GetWidget( int32 uiIndex )
+	{
+		if ( m_UI_Map.Find( uiIndex ) == false )
+			return nullptr;
+
+		return m_UI_Map[ uiIndex ].second;
+	}
+
+
+	template< typename T >
+	void CreateUI( UWorld* world, int32 uiIndex )
+	{
+		if ( world == nullptr )
+			return;
+
+		if ( m_UI_Map.Find( uiIndex ) == false )
+			return;
+
+		m_UI_Map[ uiIndex ].first = ConstructorHelpersInternal::FindOrLoadClass( m_UIClassPath_Map[ uiIndex ], T::StaticClass() );
+
+		if ( m_UI_Map[ uiIndex ].first == nullptr )
+			return;
+
+		m_UI_Map[ uiIndex ].second = CreateWidget< UUserWidget >( world, m_UI_Map[ uiIndex ].first );
+
+		if ( Cast< T >( m_UI_Map[ uiIndex ].second ) == nullptr )
+			return;
+
+		( Cast< T >( m_UI_Map[ uiIndex ].second ) )->AddToViewport();
+	}
 };

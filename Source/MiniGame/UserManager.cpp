@@ -3,7 +3,8 @@
 
 #include "UserManager.h"
 #include "MiniGameCharacter.h"
-#include "ServerManager.h"
+// #include "ServerManager.h"
+
 
 UserManager::UserManager()
 {
@@ -15,6 +16,6 @@ UserManager::~UserManager()
 
 void UserManager::PushPlayer( int32 key, AMiniGameCharacter* character )
 {
-	PlayerMap.Add(key, character);
+	PlayerMap.Add( key, character );
 	int32 num = PlayerMap.Num();
 }

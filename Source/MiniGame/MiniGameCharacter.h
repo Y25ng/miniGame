@@ -5,14 +5,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-
 #include "MiniGameCharacter.generated.h"
 
 
 UCLASS( config=Game )
 class AMiniGameCharacter : public ACharacter
 {
-
 private:
 
 	GENERATED_BODY()
@@ -81,7 +79,7 @@ protected:
 	void TouchStopped( ETouchIndex::Type FingerIndex, FVector Location );
 
 	virtual void BeginPlay() override;
-	virtual void Tick(float DeltaTime) override;
+	// virtual void Tick(float DeltaTime) override;
 
 protected:
 	// APawn interface
@@ -93,7 +91,4 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
-
-
 };
-
