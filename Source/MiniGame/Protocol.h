@@ -26,34 +26,34 @@ namespace InitWord
 // CLIENT
 namespace ClientToServer
 {
-	constexpr short LOGIN_REQUEST = 0;
-	constexpr short MOVE = 1;
+	constexpr unsigned char LOGIN_REQUEST = 0;
+	constexpr unsigned char MOVE = 1;
 }
 // SERVER
 namespace ServerToClient
 {
-	constexpr short FIRSTINFO = -1;
-	constexpr short LOGON_OK = 0;
-	constexpr short LOGON_FAILED = 1;
-	constexpr short GAMESTART = 2;
-	constexpr short MOVE = 3;
+	constexpr unsigned char FIRSTINFO = 0;
+	constexpr unsigned char LOGON_OK = 1;
+	constexpr unsigned char LOGON_FAILED = 2;
+	constexpr unsigned char GAMESTART = 3;
+	constexpr unsigned char MOVE = 4;
 }
 
 // PACKET DECLARE
 #pragma pack(push, 1)
 struct PacketInfo
 {
-	/*const*/ unsigned char	 size;
-	/*const*/ short type;
+	/*const*/ unsigned char	size;
+	/*const*/ unsigned char type;
 
 public:
 	PacketInfo() = default;
 
 	PacketInfo(
-		const unsigned char	 size,
-		const unsigned short type)
-		: size(size)
-		, type(type)
+		const unsigned char	size,
+		const unsigned char type )
+		: size( size )
+		, type( type )
 	{
 	}
 };
@@ -67,9 +67,9 @@ namespace Packet
 		PacketInfo info;
 		int owner;
 
-		FirstPlayer(const int owner)
-			: info(sizeof(FirstPlayer), ServerToClient::FIRSTINFO)
-			, owner(owner)
+		FirstPlayer( const int owner )
+			: info( sizeof( FirstPlayer ), ServerToClient::FIRSTINFO )
+			, owner( owner )
 		{}
 	};
 
@@ -78,13 +78,13 @@ namespace Packet
 	struct LoginRequest
 	{
 		PacketInfo info;
-		char name[InitPlayer::MAX_NAME];
-		char password[InitPlayer::MAX_PASSWORD];
+		char name[ InitPlayer::MAX_NAME ];
+		char password[ InitPlayer::MAX_PASSWORD ];
 		int owner;
 
-		LoginRequest(const int owner)
-			: info(sizeof(LoginRequest), ClientToServer::LOGIN_REQUEST)
-			, owner(owner), name(), password()
+		LoginRequest( const int owner )
+			: info( sizeof( LoginRequest ), ClientToServer::LOGIN_REQUEST )
+			, owner( owner ), name(), password()
 		{}
 	};
 	// 로그인 결과
@@ -94,13 +94,13 @@ namespace Packet
 	struct LoginResult
 	{
 		PacketInfo info;
-		char name[InitPlayer::MAX_NAME];
+		char name[ InitPlayer::MAX_NAME ];
 		int owner;
 
 		// 승률도 추가될 수 잇음
-		LoginResult(const int owner, const int type/*Login Failed, Login Ok*/)
-			: info(sizeof(LoginResult), type)
-			, owner(owner), name()
+		LoginResult( const int owner, const int type/*Login Failed, Login Ok*/ )
+			: info( sizeof( LoginResult ), type )
+			, owner( owner ), name()
 		{}
 	};
 
@@ -116,9 +116,9 @@ namespace Packet
 		float y;
 		// 초기 위치 추가될 예정
 
-		GameStart(const int owner)
-			: info(sizeof(GameStart), ServerToClient::GAMESTART)
-			, owner(owner), color(), x(), y(182.f)
+		GameStart( const int owner )
+			: info( sizeof( GameStart ), ServerToClient::GAMESTART )
+			, owner( owner ), color(), x(), y( 182.f )
 		{}
 	};
 
@@ -133,14 +133,12 @@ namespace Packet
 		float speed;
 		float x;
 		float y;
-		float z;
 		float directionX;
 		float directionY;
-		float directionZ;
 
-		Move(const int owner, const int type/*ClientToServer::Move, ServerToClient::Move*/)
-			: info(sizeof(Move), type)
-			, owner(owner), speed(), x(), y(), z(), directionX(), directionY(), directionZ()
+		Move( const int owner, const int type/*ClientToServer::Move, ServerToClient::Move*/ )
+			: info( sizeof( Move ), type )
+			, owner( owner ), speed(), x(), y(), directionX(), directionY()
 		{}
 	};
 }

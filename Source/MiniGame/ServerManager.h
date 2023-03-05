@@ -7,7 +7,8 @@
 #include "Protocol.h"
 
 
-#define SERVERIP "172.28.35.240"
+// #define SERVERIP "172.28.35.240"
+#define SERVERIP "192.168.0.24" // юс╫ц IP
 #define SERVERPORT 9000
 
 
@@ -31,12 +32,12 @@ private:
 
 	ServerManager();
 	~ServerManager();
-
 	
 	AMiniGameCharacter* character;
 	AMiniGameCharacter* character2;
 	AMiniGameCharacter* character3;
 	
+	bool bGameStart;
 
 public:
 	ServerManager(ServerManager const&) = delete;
@@ -65,4 +66,5 @@ public:
 	AMiniGameCharacter* GetCharacter3() { return character3; }
 	void SetCharacter3(AMiniGameCharacter* varCharacter) { character3 = varCharacter; }
 	
+	bool GetbGameStart() { return bGameStart; }
 };

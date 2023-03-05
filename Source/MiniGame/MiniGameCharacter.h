@@ -23,6 +23,9 @@ private:
 	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = ( AllowPrivateAccess = "true" ) )
 		class UCameraComponent* FollowCamera;
 
+	float m_PeriodSendToServer;
+	float m_LerpTime;
+
 public:
 	AMiniGameCharacter();
 
@@ -39,6 +42,13 @@ public:
 	UFUNCTION()
 		void SetColor( int32 colorNum ) { m_Color = colorNum; }
 
+	void SetDefaultLocation( float x, float y );
+	void SetOwnerIndex( int var ) { m_OwnerIndex = var; }
+	void SetbRecvLocation( bool var ) { m_bRecvLocation = var; }
+	void SetStartLocation( FVector var ) { m_StartLocation = var; }
+	void SetTargetLocation( FVector var ) { m_TargetLocation = var; }
+	void SetTargetDirection( FVector var ) { m_TargetDirection = var; }
+
 	// 충돌체에 오버랩 발생시 호출
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor)override;
 	virtual void NotifyHit( class UPrimitiveComponent* MyComp, class AActor* Other, class UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit ) override;
@@ -50,6 +60,16 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 		FName NickName;
+
+	float m_XLocation;
+	float m_YLocation;
+	int32 m_OwnerIndex;
+
+	FVector m_StartLocation;
+	FVector m_TargetLocation;
+	FVector m_TargetDirection;
+
+	bool m_bRecvLocation;
 
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
@@ -79,7 +99,7 @@ protected:
 	void TouchStopped( ETouchIndex::Type FingerIndex, FVector Location );
 
 	virtual void BeginPlay() override;
-	// virtual void Tick(float DeltaTime) override;
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	// APawn interface

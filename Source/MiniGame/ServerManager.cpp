@@ -11,7 +11,7 @@
 
 
 ServerManager::ServerManager()
-    :m_buf(), m_previousPacketSize(0), character(nullptr), character2(nullptr), character3(nullptr)
+    :m_buf(), m_previousPacketSize(0), character(nullptr), character2(nullptr), character3(nullptr), bGameStart(false)
 {
 }
 
@@ -134,7 +134,9 @@ void ServerManager::SendPacket( char datainfo, void* packet )
     break;
     case ClientToServer::MOVE:
     {
-
+        Packet::Move p = *(Packet::Move*)( packet );
+        int32 bytesSents = 0;
+        m_socket->Send( (uint8*)( packet ), sizeof( p ), bytesSents );
     }
     break;
     default:
@@ -178,23 +180,46 @@ void ServerManager::ProcessPacket( char* packet )
         Packet::GameStart p = *reinterpret_cast< Packet::GameStart* > ( packet );
         int32 num = UserManager::GetInstance().GetPlayerMap().Num();
 
-        if (UserManager::GetInstance().GetPlayerMap().Find(p.owner))
+        if ( UserManager::GetInstance().GetPlayerMap().Find( p.owner ) )
+        {
+            UserManager::GetInstance().SetPlayerDefaultInfo( p.owner, p.x, p.y, p.color );
+            UserManager::GetInstance().SetMainCharacterIndex( p.owner );
             break;
+        }
+        else
+        {
+            if ( num == 1 )
+            {
+                UserManager::GetInstance().PushPlayer( p.owner, character2 );
+            }
+            else if ( num == 2 )
+            {
+                UserManager::GetInstance().PushPlayer( p.owner, character3 );
+                bGameStart = true;
+            }
 
-        if (num == 1)
-        {
-            UserManager::GetInstance().PushPlayer(p.owner, character2);
-        }
-        else if(num == 2)
-        {
-            UserManager::GetInstance().PushPlayer(p.owner, character3);
-        }
-      
+            UserManager::GetInstance().SetPlayerDefaultInfo( p.owner, p.x, p.y, p.color );
+        }     
     }
     break;
     case ServerToClient::MOVE:
     {
         Packet::Move p = *reinterpret_cast< Packet::Move* > ( packet );
+
+        if ( UserManager::GetInstance().GetPlayerMap().Find( p.owner ) == nullptr )
+        {
+            return;
+        }
+
+        FVector tempLocation = FVector( p.x, p.y, UserManager::GetInstance().GetPlayerMap()[ p.owner ]->GetActorLocation().Z );
+        UserManager::GetInstance().GetPlayerMap()[ p.owner ]->SetStartLocation( UserManager::GetInstance().GetPlayerMap()[ p.owner ]->GetActorLocation() );
+        UserManager::GetInstance().GetPlayerMap()[ p.owner ]->SetTargetLocation( tempLocation );
+
+        FVector tempDirection = FVector( p.directionX, p.directionY, UserManager::GetInstance().GetPlayerMap()[ p.owner ]->GetActorForwardVector().Z );
+        UserManager::GetInstance().GetPlayerMap()[ p.owner ]->SetTargetDirection( tempDirection );
+
+        UserManager::GetInstance().GetPlayerMap()[ p.owner ]->SetbRecvLocation( true );
+
     }
     break;
     default:

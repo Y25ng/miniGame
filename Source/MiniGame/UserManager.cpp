@@ -19,3 +19,15 @@ void UserManager::PushPlayer( int32 key, AMiniGameCharacter* character )
 	PlayerMap.Add( key, character );
 	int32 num = PlayerMap.Num();
 }
+
+void UserManager::SetPlayerDefaultInfo( int32 key, float x, float y, int32 color )
+{
+	if ( PlayerMap.Find( key ) == nullptr )
+		return;
+
+	AMiniGameCharacter* tempCharacter = PlayerMap[ key ];
+
+	tempCharacter->SetColor( color );
+	tempCharacter->SetDefaultLocation( x, y );
+	tempCharacter->SetOwnerIndex( key );
+}

@@ -13,6 +13,7 @@
 #include "Wall.h"
 #include "UserManager.h"
 #include "ServerManager.h"
+#include "Protocol.h"
 
 
 AMiniGameCharacter::AMiniGameCharacter()
@@ -46,16 +47,62 @@ AMiniGameCharacter::AMiniGameCharacter()
 	FollowCamera->SetupAttachment( CameraBoom, USpringArmComponent::SocketName ); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	m_XLocation = GetActorLocation().X;
+	m_YLocation = GetActorLocation().Y;
+	m_PeriodSendToServer = 0.0f;
+	m_LerpTime = 0.0f;
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
-/*
 void AMiniGameCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-}
-*/
+
+	m_PeriodSendToServer += DeltaTime;
+
+	float currentXLocation = GetActorLocation().X;
+	float currentYLocation = GetActorLocation().Y;
+	
+
+	if ( ServerManager::GetInstance().GetbGameStart() && m_PeriodSendToServer >= 0.05f 
+		&& static_cast< int >( currentXLocation ) != static_cast< int >( m_XLocation )
+		&& static_cast< int >( currentYLocation ) != static_cast< int >( m_YLocation ) )
+	{
+		m_PeriodSendToServer = 0.0f;
+		m_XLocation = currentXLocation;
+		m_YLocation = currentYLocation;
+
+		if ( UserManager::GetInstance().GetMainCharacterIndex() == m_OwnerIndex )
+		{
+			Packet::Move objMove( m_OwnerIndex, ClientToServer::MOVE );
+
+			objMove.x = m_XLocation;
+			objMove.y = m_YLocation;
+			objMove.directionX = GetActorForwardVector().X;
+			objMove.directionY = GetActorForwardVector().Y;
+			objMove.speed = GetVelocity().Size();
+
+			ServerManager::GetInstance().SendPacket( ClientToServer::MOVE, &objMove);
+		}
+	}
+
+	if ( m_bRecvLocation )
+	{
+		m_LerpTime += DeltaTime;
+		FVector LerpedLocation = FMath::Lerp( m_StartLocation, m_TargetLocation, m_LerpTime );
+
+		SetActorLocation( LerpedLocation );
+		SetActorRotation( m_TargetDirection.Rotation() );
+
+		if ( m_LerpTime >= 1.0f )
+		{
+			m_bRecvLocation = false;
+			m_LerpTime = 0.0f;
+		}
+	}	
+}	
 
 void AMiniGameCharacter::BeginPlay()
 {
@@ -225,4 +272,16 @@ void AMiniGameCharacter::MoveRight( float Value )
 		// add movement in that direction
 		AddMovementInput( Direction, Value );
 	}
+}
+
+void AMiniGameCharacter::SetDefaultLocation( float x, float y )
+{
+	m_XLocation = x;
+	m_YLocation = y;
+
+	float tempZ = GetActorLocation().Z;
+	
+	FVector targetLocation = FVector( x, y, tempZ );
+
+	SetActorLocation( targetLocation );
 }

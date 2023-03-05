@@ -9,7 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h" // 카메라 헤더
 #include "CameraForMinimap.h"
-// #include "ServerManager.h"
+#include "ServerManager.h"
 
 
 AMiniGameGameMode::AMiniGameGameMode()
@@ -56,7 +56,7 @@ AMiniGameGameMode::AMiniGameGameMode()
 
 AMiniGameGameMode::~AMiniGameGameMode()
 {
-	// ServerManager::GetInstance().ShutDown();
+	ServerManager::GetInstance().ShutDown();
 }
 
 void AMiniGameGameMode::Tick( float deltaTime )
@@ -72,7 +72,7 @@ void AMiniGameGameMode::Tick( float deltaTime )
 	}
 	*/
 
-	/*
+	
 	if( !bCreateDefaultPawn && GetDefaultPawnClassForController(GetWorld()->GetFirstPlayerController()) != nullptr )
 	{
 		ServerManager::GetInstance().ConnectToServer();
@@ -84,8 +84,6 @@ void AMiniGameGameMode::Tick( float deltaTime )
 	{
 		ServerManager::GetInstance().RecvPacket();
 	}
-	*/
-
 }
 
 void AMiniGameGameMode::BeginPlay()
