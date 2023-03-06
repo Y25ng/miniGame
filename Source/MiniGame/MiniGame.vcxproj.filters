@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\MiniGame.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{72208940-F0D9-4B39-8D1D-170C264A922D}</UniqueIdentifier>
+      <UniqueIdentifier>{EA9E1EA5-7A20-4E4C-897F-ECB76B7B978B}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MiniGame.Target.cs">
       <Filter>Source</Filter>
@@ -13,7 +13,7 @@
     </None>
     <None Include="..\..\.gitignore" />
     <Filter Include="Config">
-      <UniqueIdentifier>{FC7141B6-AFC1-497F-BCC2-A7E58F49F058}</UniqueIdentifier>
+      <UniqueIdentifier>{CA584AAE-62C5-4EB0-824D-CF127F4AF698}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -31,7 +31,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\MiniGame">
-      <UniqueIdentifier>{5C6E9007-0F5D-4266-BE08-48DA95ABC21D}</UniqueIdentifier>
+      <UniqueIdentifier>{8DF420AA-72E3-411D-975E-E2AA2D738E8E}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Source\MiniGame\blackboard_keys.h">
       <Filter>Source\MiniGame</Filter>
@@ -42,10 +42,22 @@
     <ClInclude Include="..\..\Source\MiniGame\BTTask_FindRandomLocation.h">
       <Filter>Source\MiniGame</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\MiniGame\CameraForMinimap.cpp">
+      <Filter>Source\MiniGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MiniGame\CameraForMinimap.h">
+      <Filter>Source\MiniGame</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\MiniGame\ColorBottom.cpp">
       <Filter>Source\MiniGame</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\MiniGame\ColorBottom.h">
+      <Filter>Source\MiniGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MiniGame\LogInUI.cpp">
+      <Filter>Source\MiniGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MiniGame\LogInUI.h">
       <Filter>Source\MiniGame</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\MiniGame\MainUI.cpp">
@@ -100,6 +112,12 @@
       <Filter>Source\MiniGame</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\MiniGame\UIManager.h">
+      <Filter>Source\MiniGame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MiniGame\UserManager.cpp">
+      <Filter>Source\MiniGame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MiniGame\UserManager.h">
       <Filter>Source\MiniGame</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\MiniGame\Wall.cpp">
