@@ -1,5 +1,3 @@
-
-
 #ifndef PROTOCOL_H
 #define PROTOCOL_H
 
@@ -13,13 +11,28 @@ namespace InitPlayer
 {
 	constexpr int MAX_NAME = 16;
 	constexpr int MAX_PASSWORD = 32;
-	constexpr float INITPOSITION_X = -1777.f;
-	constexpr float INITINTERVAL = 1080.f;
+	constexpr float INITPOSITION_X[ 3 ] = { 1726.f, 1366.f , 2086.f };
+	constexpr float INITPOSITION_Y[ 3 ] = { 1486.f, 2206.f, 2206.f };
+	constexpr float INITDIRECTION_X[ 3 ] = { 0.f, -0.5f, -0.5f };
+	constexpr float INITDIRECTION_Y[ 3 ] = { 0.f,-0.866025f,0.866025f };
 }
 
-namespace InitWord
+namespace InitWorld
 {
-	constexpr float BOX_SIZE = 32.f;
+	// 블록 정보
+	constexpr int TILE_COUNTX = 7;
+	constexpr int TILE_COUNTY = 7;
+
+	// 반지름
+	constexpr float TILECOLLIDER_SIZE = 159.5f;
+	constexpr float TILEWITHGAP_SIZE = 360.f; /*블록 간 틈을 포함한 거리*/
+
+	//0번 인덱스 블록 위치
+	constexpr float FIRST_TILEPOSITION_X = 646.f;
+	constexpr float FIRST_TILEPOSITION_Y = 766.f;
+
+	//첫 시작 블록 색칠 인덱스
+	constexpr int FIRSTTILE_COLOR[ 3 ] = { 17,23,25 };
 }
 // PACKET TYPE
 
@@ -35,8 +48,10 @@ namespace ServerToClient
 	constexpr unsigned char FIRSTINFO = 0;
 	constexpr unsigned char LOGON_OK = 1;
 	constexpr unsigned char LOGON_FAILED = 2;
-	constexpr unsigned char GAMESTART = 3;
+	constexpr unsigned char INITPLAYERS = 3;
 	constexpr unsigned char MOVE = 4;
+	constexpr unsigned char TIME = 5;
+	constexpr unsigned char COLLISION_BLOCK = 6;
 }
 
 // PACKET DECLARE
@@ -53,9 +68,7 @@ public:
 		const unsigned char	size,
 		const unsigned char type )
 		: size( size )
-		, type( type )
-	{
-	}
+		, type( type ) {}
 };
 namespace Packet
 {
@@ -69,8 +82,7 @@ namespace Packet
 
 		FirstPlayer( const int owner )
 			: info( sizeof( FirstPlayer ), ServerToClient::FIRSTINFO )
-			, owner( owner )
-		{}
+			, owner( owner ) {}
 	};
 
 	// 로그인 요청
@@ -84,8 +96,7 @@ namespace Packet
 
 		LoginRequest( const int owner )
 			: info( sizeof( LoginRequest ), ClientToServer::LOGIN_REQUEST )
-			, owner( owner ), name(), password()
-		{}
+			, owner( owner ), name(), password() {}
 	};
 	// 로그인 결과
 	// 서버에서 로그인 결과를 클라이언트에게 전송 -> 패킷 타입이 Login Failed, LoginOk 중 하나
@@ -100,26 +111,27 @@ namespace Packet
 		// 승률도 추가될 수 잇음
 		LoginResult( const int owner, const int type/*Login Failed, Login Ok*/ )
 			: info( sizeof( LoginResult ), type )
-			, owner( owner ), name()
-		{}
+			, owner( owner ), name() {}
 	};
 
 	// 서버에서 미니게임 씬 전환 요청 및 초기화 정보 전송
 	// 클라이언트에서 해당 패킷을 받고 플레이어들의 초기 위치, 고유 색상을 Set
 	// owner를 통해 각 플레이어들을 구분할 것
-	struct GameStart
+	struct InitPlayers
 	{
 		PacketInfo info;
-		int owner; /* 플레이어 구분, 로그인 구현 시 추후 닉네임으로 변경*/
-		short color; /* 플레이어 고유 색상 0 - red, 1 - blue, 2 - yellow*/
-		float x;
-		float y;
+		int owner;			/* 플레이어 구분, 로그인 구현 시 추후 닉네임으로 변경*/
+		short color;		/* 플레이어 고유 색상 0 - red, 1 - blue, 2 - yellow*/
+		float x;			/*x 좌표*/
+		float y;			/*y 좌표*/
+		float directionX;	/*X방향 각도*/
+		float directionY;	/*Y방향 각도*/
+
 		// 초기 위치 추가될 예정
 
-		GameStart( const int owner )
-			: info( sizeof( GameStart ), ServerToClient::GAMESTART )
-			, owner( owner ), color(), x(), y( 182.f )
-		{}
+		InitPlayers( const int owner )
+			: info( sizeof( InitPlayers ), ServerToClient::INITPLAYERS )
+			, owner( owner ), color(), x(), y(), directionX(), directionY() {}
 	};
 
 	// 클라이언트가 이동 패킷 서버에게 전송
@@ -138,8 +150,30 @@ namespace Packet
 
 		Move( const int owner, const int type/*ClientToServer::Move, ServerToClient::Move*/ )
 			: info( sizeof( Move ), type )
-			, owner( owner ), speed(), x(), y(), directionX(), directionY()
-		{}
+			, owner( owner ), speed(), x(), y(), directionX(), directionY() {}
+	};
+
+	// 플레이어와 블록과의 충돌 발생 시 클라에게 패킷 전송
+	// 
+	struct CollisionTile
+	{
+		PacketInfo info;
+		int owner;
+		int tileIndex;
+
+		CollisionTile( const int owner, const int tileIndex )
+			:info( sizeof( CollisionTile ), ServerToClient::COLLISION_BLOCK ), owner( owner ), tileIndex( tileIndex ) {}
+	};
+
+
+	// 서버가 클라이언트에게 보내는 인게임 타이머
+	// 단위: 1초
+	struct Timer
+	{
+		PacketInfo info;
+		unsigned char time; /*초 단위*/
+		Timer( unsigned char time )
+			:info( sizeof( Timer ), ServerToClient::TIME ), time( time ) {}
 	};
 }
 #pragma pack(pop)

@@ -1,5 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+
 #pragma once
 
 
@@ -34,9 +35,13 @@ public:
 
 
 	// 3명의 플레이어가 입장했을 때 각 플레이어의 처음 시작 위치와 각 플레이어가 가질 색 정보를 할당
-	void SetPlayerDefaultInfo( int32 key, float x, float y, int32 color  );
+	void SetPlayerDefaultInfo( int32 key, float x, float y, float directionX, float directionY, int32 color  );
 	
+	void SetPlayerTime( unsigned char time );
+
 	void SetMainCharacterIndex( int32 key ) { m_MainCharacterKey = key; }
 	int32 GetMainCharacterIndex() { return m_MainCharacterKey; }
+	int32 GetCharacterColor( int32 key ); 
+
 };
 

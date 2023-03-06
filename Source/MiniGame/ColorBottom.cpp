@@ -10,6 +10,7 @@
 #include "MiniGameCharacter.h" // 프로젝트 디폴트 Character 헤더
 #include "MiniGameGameMode.h" // 프로젝트 디폴트 GameMode 헤더
 #include "Runtime/Engine/Classes/Engine/World.h" // 현재 World 반환을 위한 헤더
+#include "ActorManager.h"
 
 
 // Sets default values
@@ -62,6 +63,19 @@ AColorBottom::AColorBottom()
 
 	// m_bElevate = false;
 	// m_BottomDeltaTime = 0.0f;
+
+	FVector Origin, BoxExtent;
+	GetActorBounds(true, Origin, BoxExtent, true);
+
+
+	FVector WorldSize = FVector(BoxExtent.X, BoxExtent.Y, BoxExtent.Z);
+
+	UE_LOG(LogTemp, Error, TEXT("%f"), WorldSize.X );
+
+	if ( ActorManager::GetInstance().GetColorBottom() == nullptr )
+	{
+		ActorManager::GetInstance().SetColorBottom( this );
+	}
 }
 
 
@@ -93,6 +107,7 @@ void AColorBottom::Tick( float DeltaTime )
 // 타일이 다른 객체와 충돌이 발생했을 때 자동으로 호출
 void AColorBottom::NotifyActorBeginOverlap( AActor* OtherActor )
 {
+	/*
 	AMiniGameCharacter* tempCharacter = Cast< AMiniGameCharacter >( OtherActor );
 
 	if ( tempCharacter == nullptr )

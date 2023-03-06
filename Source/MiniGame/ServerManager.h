@@ -7,7 +7,8 @@
 #include "Protocol.h"
 
 
-#define SERVERIP "172.28.35.240"
+#define SERVERIP "172.28.35.240" // ±Ë¡ˆ¿∫¥‘ IP
+// #define SERVERIP "172.28.35.239" // 
 // #define SERVERIP "192.168.0.24" // ¿”Ω√ IP
 #define SERVERPORT 9000
 
@@ -65,7 +66,7 @@ public:
 	AMiniGameCharacter* GetCharacter3() { return m_Character3; }
 	void SetCharacter3(AMiniGameCharacter* varCharacter) { m_Character3 = varCharacter; }
 
-	void SetOtherCharacterStartInfo( Packet::GameStart& p, int playerMapSize );
+	void SetOtherCharacterStartInfo( Packet::InitPlayers& p, int playerMapSize );
 	void SetCharacterMoveInfo( Packet::Move& p );
 	
 	bool GetbGameStart() { return m_bGameStart; }

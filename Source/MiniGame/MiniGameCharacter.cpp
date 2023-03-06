@@ -51,6 +51,7 @@ AMiniGameCharacter::AMiniGameCharacter()
 	m_YLocation = GetActorLocation().Y;
 	m_PeriodSendToServer = 0.0f;
 	m_LerpTime = 0.0f;
+	m_GameTimeSec = 0;
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
@@ -79,7 +80,7 @@ void AMiniGameCharacter::SetDefaultLocation( float x, float y )
 void AMiniGameCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
+*
 	if ( NickName.ToString() == TEXT( "Default" ) ) // 플레이어가 조종할 캐릭터
 	{
 		ServerManager::GetInstance().SetCharacter( this );
@@ -133,8 +134,10 @@ void AMiniGameCharacter::Tick(float DeltaTime)
 		FVector LerpedLocation = FMath::Lerp( m_StartLocation, m_TargetLocation, m_LerpTime );
 
 		SetActorLocation( LerpedLocation );
-		SetActorRotation( m_TargetDirection.Rotation() );
 
+		FRotator targetRotation = m_TargetDirection.Rotation();
+		SetActorRotation( FMath::RInterpTo(GetActorRotation(), targetRotation, GetWorld()->GetDeltaSeconds(), 40.f ));
+		
 		if ( m_LerpTime >= 1.0f )
 		{
 			m_bRecvLocation = false;

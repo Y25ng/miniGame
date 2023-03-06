@@ -7,7 +7,10 @@
 #include "Sockets.h"
 #include "SocketSubsystem.h"
 #include "UserManager.h"
+#include "UIManager.h"
+#include "ActorManager.h"
 #include "MiniGameCharacter.h"
+#include <algorithm>
 
 
 ServerManager::ServerManager()
@@ -86,7 +89,7 @@ void ServerManager::RecvPacket()
     }
 
     // 이전에 받았던 패킷이 있을 경우 그 뒤에, 이전에 받았던 패킷이 없으면 m_previousPacketSize 는 0
-    memcpy_s(m_buf + m_previousPacketSize, sizeof(m_buf), buf2, sizeof(buf2));
+    std::copy(buf2, buf2 + bytesSents, m_buf + m_previousPacketSize);
 
     do
     {
@@ -97,23 +100,30 @@ void ServerManager::RecvPacket()
         if (packetSize <= bytesSents)
         {
             char assemble[InitPacket::MAX_BUFFERSIZE] = { NULL, };
-            memcpy_s(assemble, sizeof(assemble), m_buf, packetSize);
+            std::copy(m_buf, m_buf + packetSize, assemble);
             ProcessPacket(assemble);
 
             packet += packetSize;
             bytesSents -= packetSize;
-            m_previousPacketSize = 0;
 
             if (bytesSents != 0)
-                memcpy_s(m_buf, sizeof(m_buf), packet, bytesSents);
+            {
+                char initBuffer[InitPacket::MAX_BUFFERSIZE];
+
+                std::copy(packet, packet + InitPacket::MAX_BUFFERSIZE, initBuffer);
+                std::copy(initBuffer, initBuffer + InitPacket::MAX_BUFFERSIZE, m_buf);
+                packet = m_buf;
+            }
             else
+            {
+                m_previousPacketSize = 0;
                 ZeroMemory(m_buf, sizeof(m_buf));
+            }
         }
         // 패킷 데이터 크기가 받은 데이터보다 많음 -> 패킷을 더 받아야 함
         else
         {
-            packet += bytesSents;
-            m_previousPacketSize = bytesSents;
+            m_previousPacketSize += bytesSents;
         }
     } while (bytesSents > 0);
 }
@@ -174,17 +184,17 @@ void ServerManager::ProcessPacket( char* packet )
         Packet::LoginResult p = *reinterpret_cast< Packet::LoginResult* > ( packet );
 
     }
-    case ServerToClient::GAMESTART:
+    case ServerToClient::INITPLAYERS:
     {
   
-        Packet::GameStart p = *reinterpret_cast< Packet::GameStart* > ( packet );
+        Packet::InitPlayers p = *reinterpret_cast< Packet::InitPlayers* > ( packet );
         int32 playerMapSize = UserManager::GetInstance().GetPlayerMap().Num();
 
         // 객체 p가 담고있는 정보가 현재 플레이어에 대한 정보라면
         if ( UserManager::GetInstance().GetPlayerMap().Find( p.owner ) )
         {
             // 현재 플레이어에 대한 정보 할당
-            UserManager::GetInstance().SetPlayerDefaultInfo( p.owner, p.x, p.y, p.color );
+            UserManager::GetInstance().SetPlayerDefaultInfo( p.owner, p.x, p.y, p.directionX, p.directionY, p.color );
             UserManager::GetInstance().SetMainCharacterIndex( p.owner );
 
             break;
@@ -208,6 +218,23 @@ void ServerManager::ProcessPacket( char* packet )
         // 나를 제외한 플레이어의 캐릭터들의 움직임에 대한 정보 세팅
         SetCharacterMoveInfo( p );
     }
+    case ServerToClient::TIME:
+    {
+        Packet::Timer p = *reinterpret_cast<Packet::Timer*> (packet);
+
+        // 현재 플레이어에 대한 정보 할당
+        UserManager::GetInstance().SetPlayerTime(p.time);
+        UIManager::GetInstance().SetGameTimeSec(p.time);
+
+        break;
+    }
+
+    case ServerToClient::COLLISION_BLOCK:
+    {
+        Packet::CollisionTile p = *reinterpret_cast<Packet::CollisionTile*>( packet );
+        ActorManager::GetInstance().ChangeBottomColor( UserManager::GetInstance().GetCharacterColor(p.owner), p.tileIndex );
+    }
+
     break;
     default:
         break;
@@ -216,7 +243,7 @@ void ServerManager::ProcessPacket( char* packet )
 }
 
 // 현재 플레이어가 아닌 다른 플레이어 캐릭터들에 대한 정보 할당
-void ServerManager::SetOtherCharacterStartInfo( Packet::GameStart& p, int playerMapSize )
+void ServerManager::SetOtherCharacterStartInfo( Packet::InitPlayers& p, int playerMapSize )
 {
     if ( playerMapSize == 1 )
     {
@@ -228,7 +255,7 @@ void ServerManager::SetOtherCharacterStartInfo( Packet::GameStart& p, int player
         m_bGameStart = true;
     }
 
-    UserManager::GetInstance().SetPlayerDefaultInfo( p.owner, p.x, p.y, p.color );
+    UserManager::GetInstance().SetPlayerDefaultInfo( p.owner, p.x, p.y, p.directionX, p.directionY, p.color );
 }
 
 // 나를 제외한 플레이어의 캐릭터들의 움직임에 대한 정보 세팅 함수

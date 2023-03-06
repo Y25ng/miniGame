@@ -65,6 +65,8 @@ public:
 	// 타일 색깔을 변경해줄 함수
 	void ChangeColor( int32 colorNum );
 
+	int32 GetBottomNumber() { return m_BottomNumber; }
+
 	// 충돌체에 오버랩이 끝날시 호출
 	// virtual void NotifyActorEndOverlap(AActor* OtherActor)override;
 	// void OnElevate();
@@ -73,4 +75,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	// 현재 타일 색깔
+	UPROPERTY( EditAnywhere )
+		int32 m_BottomNumber;
 };

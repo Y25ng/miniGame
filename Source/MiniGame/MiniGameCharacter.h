@@ -28,6 +28,7 @@ private:
 	float m_XLocation;
 	float m_YLocation;
 	int32 m_OwnerIndex;
+	int32 m_GameTimeSec;
 
 	FVector m_StartLocation;
 	FVector m_TargetLocation;
@@ -50,6 +51,11 @@ public:
 	void SetStartLocation( FVector var ) { m_StartLocation = var; }
 	void SetTargetLocation( FVector var ) { m_TargetLocation = var; }
 	void SetTargetDirection( FVector var ) { m_TargetDirection = var; }
+	void SetGameTimeSec( int var ) 
+	{ 
+		m_GameTimeSec = var;
+		UE_LOG(LogTemp, Error, TEXT("%d"), var);
+	}
 
 	// 충돌체에 오버랩 발생시 호출
 	virtual void NotifyActorBeginOverlap( AActor* OtherActor )override;

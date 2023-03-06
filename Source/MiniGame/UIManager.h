@@ -41,6 +41,7 @@ private:
 
 	TMap<int32, FString > m_UIClassPath_Map;
 	TMap<int32, std::pair< TSubclassOf< UUserWidget >, UUserWidget* > > m_UI_Map;
+	int32 m_GameTimeSec;
 
 public:
 
@@ -52,6 +53,9 @@ public:
 
 		return m_UI_Map[ uiIndex ].second;
 	}
+
+	void SetGameTimeSec( unsigned char var ) { m_GameTimeSec = static_cast<int>( var ); }
+	int32 GetGameTimeSec() { return m_GameTimeSec; }
 
 	// 타입 T와 key값을 통해 원하는 Widget 생성 후 출력
 	template< typename T >

@@ -89,6 +89,6 @@ void AMiniGameGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	( UIManager::GetInstance() ).CreateUI< UMainUI >( GetWorld(), EUIPathKey::MAIN );
+	UIManager::GetInstance().CreateUI< UMainUI >( GetWorld(), EUIPathKey::MAIN );
 }
 

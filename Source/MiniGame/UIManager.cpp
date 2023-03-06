@@ -5,6 +5,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "MainUI.h"
 #include "LogInUI.h"
+#include "MiniGameCharacter.h"
 
 
 UIManager::UIManager()
@@ -20,9 +21,12 @@ UIManager::UIManager()
 
 		m_UI_Map.Add( i, { UIClass, UIWidget } );
 	}
+
+	m_GameTimeSec = 0;
 }
 
 UIManager::~UIManager()
 {
 }
+
 
