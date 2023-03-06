@@ -2,11 +2,8 @@
 
 
 #include "CameraForMinimap.h"
-#include "Camera/CameraComponent.h" // 카메라 헤더
-#include "UIManager.h"
-#include "MainUI.h"
-#include "MiniGameGameMode.h"
-#include "Components/SceneCaptureComponent2D.h"
+#include "Camera/CameraComponent.h" // 카메라 컴포넌트를 위한 헤더
+#include "Components/SceneCaptureComponent2D.h" // 카메라 장면 캡쳐 컴포넌트 헤더
 
 
 // Sets default values
@@ -24,19 +21,11 @@ ACameraForMinimap::ACameraForMinimap()
 void ACameraForMinimap::BeginPlay()
 {
 	Super::BeginPlay();
-
-	AMiniGameGameMode* tempGameMode = Cast< AMiniGameGameMode >( GetWorld()->GetAuthGameMode() );
-
-	if ( tempGameMode )
-	{
-		tempGameMode->SetCameraActor( this );
-	}
 }
 
 // Called every frame
 void ACameraForMinimap::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 

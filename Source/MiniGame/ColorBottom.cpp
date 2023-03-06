@@ -6,12 +6,10 @@
 #include "Components/StaticMeshComponent.h" // mesh component 헤더
 #include "GameFramework/Character.h" // UE4 제공 Character 헤더
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Kismet/KismetMathLibrary.h" // 선형보간을 위한 헤더
+// #include "Kismet/KismetMathLibrary.h" // 선형보간을 위한 헤더
 #include "MiniGameCharacter.h" // 프로젝트 디폴트 Character 헤더
 #include "MiniGameGameMode.h" // 프로젝트 디폴트 GameMode 헤더
 #include "Runtime/Engine/Classes/Engine/World.h" // 현재 World 반환을 위한 헤더
-#include "Blueprint/UserWidget.h" // Widget Blueprint 내 컴포넌트와의 Bind를 위한 UserWidget 클래스 헤더
-#include "MainUI.h" // UserWidget을 상속받는 게임의 Main UI 클래스
 
 
 // Sets default values
@@ -76,7 +74,7 @@ void AColorBottom::BeginPlay()
 	{
 		// 타일의 초기 색깔을 흰색으로 설정
 		m_StaticMesh->SetMaterial(0, m_Material_Map[EColorNum::WHITE]);
-		// 타일의 현재 색깔을 하얀색으로 지정
+		// 타일의 현재 색깔 상태를 나타내는 변수에 하얀색을 의미하는 상수 할당
 		m_CurrentColor = EColorNum::WHITE;
 	}
 
@@ -110,24 +108,17 @@ void AColorBottom::NotifyActorBeginOverlap( AActor* OtherActor )
 	m_CurrentColor = tempCharacterColor;
 
 	/*
-	UWorld* world = GetWorld();
-
-	if (world)
-	{
-		AMiniGameGameMode* gameMode = Cast< AMiniGameGameMode >(world->GetAuthGameMode());
-		if (gameMode)
-		{
-		}
-
-	}*/
-
-	/*
 	if ( m_bElevate == false )
 	{
 		GetWorldTimerManager().SetTimer(BottomTimerHandle, this, &AColorBottom::OnElevate, 0.03f, true);
 	}
 	*/
+}
 
+// 현재 타일의 머터리얼을 바꿔주는 함수
+void AColorBottom::ChangeColor( int32 colorNum )
+{
+	m_StaticMesh->SetMaterial( 0, m_Material_Map[ colorNum ] );
 }
 
 /*
@@ -140,11 +131,6 @@ void AColorBottom::NotifyActorEndOverlap( AActor* OtherActor )
 	}
 }
 */
-
-void AColorBottom::ChangeColor( int32 colorNum )
-{
-	m_StaticMesh->SetMaterial( 0, m_Material_Map[ colorNum ] );
-}
 
 /*
 void AColorBottom::OnElevate()

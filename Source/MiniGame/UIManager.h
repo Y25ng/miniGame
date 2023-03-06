@@ -14,6 +14,8 @@ class ULogInUI;
 class UWorld;
 
 
+// pair< TSubclassOf< UUserWidget >를 Value로 하는 TMap 컨테이너의 Key로 사용
+// Widget BP의 경로 Fstring을 Value로 하는 TMap 컨테이너의 Key로 사용
 enum EUIPathKey
 {
 	LOGIN = 0,
@@ -42,6 +44,7 @@ private:
 
 public:
 
+	// key 값을 통해 원하는 Widget 반환
 	UUserWidget* GetWidget( int32 uiIndex )
 	{
 		if ( m_UI_Map.Find( uiIndex ) == false )
@@ -50,7 +53,7 @@ public:
 		return m_UI_Map[ uiIndex ].second;
 	}
 
-
+	// 타입 T와 key값을 통해 원하는 Widget 생성 후 출력
 	template< typename T >
 	void CreateUI( UWorld* world, int32 uiIndex )
 	{

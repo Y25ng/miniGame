@@ -25,17 +25,18 @@ private:
 
 	float m_PeriodSendToServer;
 	float m_LerpTime;
+	float m_XLocation;
+	float m_YLocation;
+	int32 m_OwnerIndex;
+
+	FVector m_StartLocation;
+	FVector m_TargetLocation;
+	FVector m_TargetDirection;
+
+	bool m_bRecvLocation;
 
 public:
 	AMiniGameCharacter();
-
-	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category=Camera )
-		float BaseTurnRate;
-
-	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
-	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category=Camera )
-		float BaseLookUpRate;
 
 	UFUNCTION()
 		int32 GetColor() { return m_Color; }
@@ -50,8 +51,18 @@ public:
 	void SetTargetDirection( FVector var ) { m_TargetDirection = var; }
 
 	// 충돌체에 오버랩 발생시 호출
-	virtual void NotifyActorBeginOverlap(AActor* OtherActor)override;
+	virtual void NotifyActorBeginOverlap( AActor* OtherActor )override;
 	virtual void NotifyHit( class UPrimitiveComponent* MyComp, class AActor* Other, class UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit ) override;
+
+
+	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
+	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category=Camera )
+		float BaseTurnRate;
+
+	/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
+	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category=Camera )
+		float BaseLookUpRate;
+
 
 protected:
 
@@ -61,15 +72,8 @@ protected:
 	UPROPERTY(EditAnywhere)
 		FName NickName;
 
-	float m_XLocation;
-	float m_YLocation;
-	int32 m_OwnerIndex;
-
-	FVector m_StartLocation;
-	FVector m_TargetLocation;
-	FVector m_TargetDirection;
-
-	bool m_bRecvLocation;
+	virtual void BeginPlay() override;
+	virtual void Tick( float DeltaTime ) override;
 
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
@@ -97,9 +101,6 @@ protected:
 
 	/** Handler for when a touch input stops. */
 	void TouchStopped( ETouchIndex::Type FingerIndex, FVector Location );
-
-	virtual void BeginPlay() override;
-	virtual void Tick(float DeltaTime) override;
 
 protected:
 	// APawn interface

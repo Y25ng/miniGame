@@ -2,28 +2,22 @@
 
 
 #include "MainUI.h"
-#include "Camera/CameraComponent.h" // 카메라 헤더
-#include "Components/Image.h"
-#include "Kismet/GameplayStatics.h"
-#include "UIManager.h"
-#include "CameraForMinimap.h"
-#include "Components/SceneCaptureComponent2D.h"
-#include "Engine/TextureRenderTarget2D.h"
-#include "UObject/ConstructorHelpers.h"
-
+// #include "Camera/CameraComponent.h" // 카메라 헤더
+#include "Components/Image.h" // UImage 사용을 위한 헤더
+// #include "Components/SceneCaptureComponent2D.h"
+// #include "Engine/TextureRenderTarget2D.h"
+// #include "Kismet/GameplayStatics.h"
+// #include "UObject/ConstructorHelpers.h"
+// #include "CameraForMinimap.h"
+// #include "UIManager.h"
 
 
 UMainUI::UMainUI( const FObjectInitializer& ObjectInitializer ): Super( ObjectInitializer )
 {
-    static ConstructorHelpers::FObjectFinder< UMaterial > MaterialAsset( TEXT( "/Game/StarterContent/Materials/White" ) );
-
-    if ( MaterialAsset.Succeeded() )
-        m_Material = MaterialAsset.Object;
 }
 
 void UMainUI::NativeConstruct()
 {
-
 }
 
 
@@ -32,6 +26,7 @@ void UMainUI::CreateUI()
 	AddToViewport();
 }
 
+/*
 void UMainUI::UpdateMiniMap( AActor* cameraActor )
 {
 	if ( cameraActor == nullptr || m_Material == nullptr)
@@ -88,3 +83,4 @@ void UMainUI::UpdateMiniMap( AActor* cameraActor )
         miniMap_Image->SetBrushSize( FVector2D( RenderTarget->SizeX, RenderTarget->SizeY ) );
     }
 }
+*/

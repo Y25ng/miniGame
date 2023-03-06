@@ -33,18 +33,18 @@ private:
 	ServerManager();
 	~ServerManager();
 	
-	AMiniGameCharacter* character;
-	AMiniGameCharacter* character2;
-	AMiniGameCharacter* character3;
+	AMiniGameCharacter* m_Character;
+	AMiniGameCharacter* m_Character2;
+	AMiniGameCharacter* m_Character3;
 	
-	bool bGameStart;
+	bool m_bGameStart;
 
 public:
-	ServerManager(ServerManager const&) = delete;
-	ServerManager& operator=(ServerManager const&) = delete;
+	ServerManager( ServerManager const& ) = delete;
+	ServerManager& operator=( ServerManager const& ) = delete;
 
-	ServerManager(ServerManager&&) = delete;
-	ServerManager& operator=(ServerManager&&) = delete;
+	ServerManager( ServerManager&& ) = delete;
+	ServerManager& operator=( ServerManager&& ) = delete;
 
 	// Init
 	void Initialize();
@@ -56,15 +56,17 @@ public:
 	void SendPacket( char datainfo, void* packet );
 	void ProcessPacket( char* packet );
 
-	
-	AMiniGameCharacter* GetCharacter() { return character; }
-	void SetCharacter(AMiniGameCharacter* varCharacter) { character = varCharacter; }
+	AMiniGameCharacter* GetCharacter() { return m_Character; }
+	void SetCharacter(AMiniGameCharacter* varCharacter) { m_Character = varCharacter; }
 
-	AMiniGameCharacter* GetCharacter2() { return character2; }
-	void SetCharacter2(AMiniGameCharacter* varCharacter) { character2 = varCharacter; }
+	AMiniGameCharacter* GetCharacter2() { return m_Character2; }
+	void SetCharacter2(AMiniGameCharacter* varCharacter) { m_Character2 = varCharacter; }
 
-	AMiniGameCharacter* GetCharacter3() { return character3; }
-	void SetCharacter3(AMiniGameCharacter* varCharacter) { character3 = varCharacter; }
+	AMiniGameCharacter* GetCharacter3() { return m_Character3; }
+	void SetCharacter3(AMiniGameCharacter* varCharacter) { m_Character3 = varCharacter; }
+
+	void SetOtherCharacterStartInfo( Packet::GameStart& p, int playerMapSize );
+	void SetCharacterMoveInfo( Packet::Move& p );
 	
-	bool GetbGameStart() { return bGameStart; }
+	bool GetbGameStart() { return m_bGameStart; }
 };

@@ -56,6 +56,37 @@ AMiniGameCharacter::AMiniGameCharacter()
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
+void AMiniGameCharacter::SetDefaultLocation( float x, float y )
+{
+	m_XLocation = x;
+	m_YLocation = y;
+
+	float tempZ = GetActorLocation().Z;
+
+	FVector targetLocation = FVector( x, y, tempZ );
+
+	SetActorLocation( targetLocation );
+}
+
+void AMiniGameCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if ( NickName.ToString() == TEXT( "Default" ) ) // 플레이어가 조종할 캐릭터
+	{
+		ServerManager::GetInstance().SetCharacter( this );
+	}
+	else if ( NickName.ToString() == TEXT( "second" ) ) // 플레이어와 대결할 캐릭터1
+	{
+		ServerManager::GetInstance().SetCharacter2( this );
+	}
+	else if ( NickName.ToString() == TEXT( "third" ) ) // 플레이오아 대결할 캐릭터2
+	{
+		ServerManager::GetInstance().SetCharacter3( this );
+	}
+
+}
+
 void AMiniGameCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -103,26 +134,6 @@ void AMiniGameCharacter::Tick(float DeltaTime)
 		}
 	}	
 }	
-
-void AMiniGameCharacter::BeginPlay()
-{
-	Super::BeginPlay();
-
-	if (NickName.ToString() == TEXT("Default")) // 플레이어가 조종할 캐릭터
-	{
-		ServerManager::GetInstance().SetCharacter(this);
-	}
-	else if (NickName.ToString() == TEXT("second")) // 플레이어와 대결할 캐릭터1
-	{
-		ServerManager::GetInstance().SetCharacter2(this);
-	}
-	else if (NickName.ToString() == TEXT("third")) // 플레이오아 대결할 캐릭터2
-	{
-		ServerManager::GetInstance().SetCharacter3(this);
-	}
-
-}
-
 
 //////////////////////////////////////////////////////////////////////////
 // Input
@@ -274,14 +285,3 @@ void AMiniGameCharacter::MoveRight( float Value )
 	}
 }
 
-void AMiniGameCharacter::SetDefaultLocation( float x, float y )
-{
-	m_XLocation = x;
-	m_YLocation = y;
-
-	float tempZ = GetActorLocation().Z;
-	
-	FVector targetLocation = FVector( x, y, tempZ );
-
-	SetActorLocation( targetLocation );
-}

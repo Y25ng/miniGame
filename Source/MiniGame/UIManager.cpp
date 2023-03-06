@@ -9,6 +9,7 @@
 
 UIManager::UIManager()
 {
+	// Widget BP 경로 TMap 형태로 저장
 	m_UIClassPath_Map.Add( EUIPathKey::LOGIN, FString("/Game/StarterContent/Blueprints/BP_LogInUI") );
 	m_UIClassPath_Map.Add( EUIPathKey::MAIN, FString("/Game/StarterContent/Blueprints/BP_MainUI") );
 

@@ -62,12 +62,11 @@ public:
 	// 충돌체에 오버랩 발생시 호출
 	virtual void NotifyActorBeginOverlap( AActor* OtherActor )override; 
 
-	// 충돌체에 오버랩이 끝날시 호출
-	// virtual void NotifyActorEndOverlap(AActor* OtherActor)override;
-
 	// 타일 색깔을 변경해줄 함수
 	void ChangeColor( int32 colorNum );
 
+	// 충돌체에 오버랩이 끝날시 호출
+	// virtual void NotifyActorEndOverlap(AActor* OtherActor)override;
 	// void OnElevate();
 	// void OffElevate();
 
