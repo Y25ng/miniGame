@@ -37,6 +37,7 @@ private:
 
 public:
 	AMiniGameCharacter();
+	~AMiniGameCharacter();
 
 	UFUNCTION()
 		int32 GetColor() { return m_Color; }

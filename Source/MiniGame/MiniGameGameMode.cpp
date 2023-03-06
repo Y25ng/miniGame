@@ -56,7 +56,6 @@ AMiniGameGameMode::AMiniGameGameMode()
 
 AMiniGameGameMode::~AMiniGameGameMode()
 {
-	ServerManager::GetInstance().ShutDown();
 }
 
 void AMiniGameGameMode::Tick( float deltaTime )

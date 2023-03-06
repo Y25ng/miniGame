@@ -11,7 +11,7 @@
 
 
 ServerManager::ServerManager()
-    :m_buf(), m_previousPacketSize(0), m_Character(nullptr), m_Character2(nullptr), m_Character3(nullptr), bGameStart(false)
+    :m_buf(), m_previousPacketSize(0), m_Character(nullptr), m_Character2(nullptr), m_Character3(nullptr), m_bGameStart(false)
 {
 }
 

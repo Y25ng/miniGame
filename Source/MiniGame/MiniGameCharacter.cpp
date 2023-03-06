@@ -56,6 +56,14 @@ AMiniGameCharacter::AMiniGameCharacter()
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
+AMiniGameCharacter::~AMiniGameCharacter()
+{
+	if ( m_OwnerIndex == UserManager::GetInstance().GetMainCharacterIndex() )
+	{
+		ServerManager::GetInstance().ShutDown();
+	}
+}
+
 void AMiniGameCharacter::SetDefaultLocation( float x, float y )
 {
 	m_XLocation = x;

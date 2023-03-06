@@ -7,8 +7,8 @@
 #include "Protocol.h"
 
 
-// #define SERVERIP "172.28.35.240"
-#define SERVERIP "192.168.0.24" // 임시 IP
+#define SERVERIP "172.28.35.240"
+// #define SERVERIP "192.168.0.24" // 임시 IP
 #define SERVERPORT 9000
 
 
