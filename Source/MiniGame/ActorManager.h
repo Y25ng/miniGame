@@ -8,6 +8,7 @@
 
 
 class AColorBottom;
+class ALobbyBottom;
 
 
 class MINIGAME_API ActorManager
@@ -17,6 +18,7 @@ private:
 	~ActorManager();
 
 	AColorBottom* m_ColorBottom;
+	ALobbyBottom* m_LobbyBottom;
 	TMap< int32, AColorBottom* > m_BottomMap;
 
 public:
@@ -31,6 +33,8 @@ public:
 	void ChangeBottomColor( int32 color, int32 tileIndex );
 	AColorBottom* GetColorBottom() { return m_ColorBottom; }
 
-	void PushBottom( int32 key, AColorBottom* bottom );
+	void SetLobbyBottom( ALobbyBottom* var_LobbyBottom ) { m_LobbyBottom = var_LobbyBottom; }
+	ALobbyBottom* GetLobbyBottom() { return m_LobbyBottom; }
 
+	void PushBottom( int32 key, AColorBottom* bottom );
 };

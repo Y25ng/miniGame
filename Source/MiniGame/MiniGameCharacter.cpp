@@ -114,7 +114,7 @@ void AMiniGameCharacter::Tick(float DeltaTime)
 		m_XLocation = currentXLocation;
 		m_YLocation = currentYLocation;
 
-		if ( UserManager::GetInstance().GetMainCharacterIndex() == m_OwnerIndex )
+		if ( UserManager::GetInstance().GetMainCharacterIndex() == m_OwnerIndex && ServerManager::GetInstance().GetbGameStart() == true )
 		{
 			Packet::Move objMove( m_OwnerIndex, ClientToServer::MOVE );
 

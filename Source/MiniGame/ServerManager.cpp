@@ -208,6 +208,11 @@ void ServerManager::ProcessPacket( char* packet )
     break;
     case ServerToClient::MOVE:
     {
+        if ( ActorManager::GetInstance().GetLobbyBottom() != nullptr )
+        {
+            return;
+        }
+
         Packet::Move p = *reinterpret_cast< Packet::Move* > ( packet );
 
         if ( UserManager::GetInstance().GetPlayerMap().Find( p.owner ) == nullptr )
@@ -233,6 +238,9 @@ void ServerManager::ProcessPacket( char* packet )
     {
         Packet::CollisionTile p = *reinterpret_cast<Packet::CollisionTile*>( packet );
         ActorManager::GetInstance().ChangeBottomColor( UserManager::GetInstance().GetCharacterColor( p.owner ), p.tileIndex );
+        {
+            UE_LOG( LogTemp, Error, TEXT( "%d" ), p.tileIndex );
+        }
     }
 
     break;
@@ -252,7 +260,6 @@ void ServerManager::SetOtherCharacterStartInfo( Packet::InitPlayers& p, int play
     else if ( playerMapSize == 2 )
     {
         UserManager::GetInstance().PushPlayer( p.owner, m_Character3 );
-        m_bGameStart = true;
     }
 
     UserManager::GetInstance().SetPlayerDefaultInfo( p.owner, p.x, p.y, p.directionX, p.directionY, p.color );

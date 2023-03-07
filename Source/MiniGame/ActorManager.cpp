@@ -5,7 +5,7 @@
 #include "ColorBottom.h"
 
 
-ActorManager::ActorManager()
+ActorManager::ActorManager() 
 {
 }
 

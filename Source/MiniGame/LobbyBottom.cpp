@@ -5,6 +5,8 @@
 #include "Components/BoxComponent.h" // box 충돌체 헤더
 #include "Components/StaticMeshComponent.h" // mesh component 헤더
 #include "UIManager.h"
+#include "ActorManager.h"
+#include "ServerManager.h"
 
 
 // Sets default values
@@ -29,6 +31,8 @@ ALobbyBottom::ALobbyBottom()
 	{
 		m_StaticMesh->SetupAttachment(RootComponent);
 	}
+
+	ActorManager::GetInstance().SetLobbyBottom( this );
 }
 
 // Called when the game starts or when spawned
@@ -45,6 +49,8 @@ void ALobbyBottom::Tick(float DeltaTime)
 
 	if ( UIManager::GetInstance().GetGameTimeSec() == 3 )
 	{
+		ServerManager::GetInstance().SetbGameStart( true );
+		ActorManager::GetInstance().SetLobbyBottom( nullptr );
 		Destroy();
 	}
 }
