@@ -61,16 +61,6 @@ AColorBottom::AColorBottom()
 	else
 		m_Material_Map.Add(EColorNum::YELLOW) = nullptr;
 
-	// m_bElevate = false;
-	// m_BottomDeltaTime = 0.0f;
-
-	FVector Origin, BoxExtent;
-	GetActorBounds(true, Origin, BoxExtent, true);
-
-
-	FVector WorldSize = FVector(BoxExtent.X, BoxExtent.Y, BoxExtent.Z);
-
-	UE_LOG(LogTemp, Error, TEXT("%f"), WorldSize.X );
 
 	if ( ActorManager::GetInstance().GetColorBottom() == nullptr )
 	{

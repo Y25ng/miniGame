@@ -15,7 +15,7 @@ AWall::AWall()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// box �浹ü
-	m_BoxCollision = CreateDefaultSubobject< UBoxComponent >(TEXT("BoxObj"));
+	m_BoxCollision = CreateDefaultSubobject< UBoxComponent >( TEXT( "BoxObj" ) );
 
 	if ( m_BoxCollision )
 	{
@@ -24,7 +24,7 @@ AWall::AWall()
 	}
 
 	// mesh
-	m_StaticMesh = CreateDefaultSubobject< UStaticMeshComponent >(TEXT("MeshObj"));
+	m_StaticMesh = CreateDefaultSubobject< UStaticMeshComponent >( TEXT( "MeshObj" ) );
 
 	if ( m_StaticMesh )
 	{

@@ -16,20 +16,20 @@ ALobbyBottom::ALobbyBottom()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// box �浹ü
-	m_BoxCollision = CreateDefaultSubobject< UBoxComponent >(TEXT("BoxObj"));
+	m_BoxCollision = CreateDefaultSubobject< UBoxComponent >( TEXT( "BoxObj" ) );
 
-	if (m_BoxCollision)
+	if ( m_BoxCollision )
 	{
-		m_BoxCollision->SetupAttachment(RootComponent);
+		m_BoxCollision->SetupAttachment( RootComponent );
 		RootComponent = m_BoxCollision;
 	}
 
 	// mesh
-	m_StaticMesh = CreateDefaultSubobject< UStaticMeshComponent >(TEXT("MeshObj"));
+	m_StaticMesh = CreateDefaultSubobject< UStaticMeshComponent >( TEXT( "MeshObj" ) );
 
-	if (m_StaticMesh)
+	if ( m_StaticMesh )
 	{
-		m_StaticMesh->SetupAttachment(RootComponent);
+		m_StaticMesh->SetupAttachment( RootComponent );
 	}
 
 	ActorManager::GetInstance().SetLobbyBottom( this );
@@ -38,8 +38,7 @@ ALobbyBottom::ALobbyBottom()
 // Called when the game starts or when spawned
 void ALobbyBottom::BeginPlay()
 {
-	Super::BeginPlay();
-	
+	Super::BeginPlay();	
 }
 
 // Called every frame
@@ -54,4 +53,3 @@ void ALobbyBottom::Tick(float DeltaTime)
 		Destroy();
 	}
 }
-

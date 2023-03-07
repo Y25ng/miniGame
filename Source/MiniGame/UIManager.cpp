@@ -29,4 +29,12 @@ UIManager::~UIManager()
 {
 }
 
+UUserWidget* UIManager::GetWidget( int32 uiIndex )
+{
+	if ( m_UI_Map.Find( uiIndex ) == false )
+		return nullptr;
+
+	return m_UI_Map[ uiIndex ].second;
+}
+
 

@@ -20,9 +20,9 @@ void UserManager::PushPlayer( int32 key, AMiniGameCharacter* character )
 	int32 num = PlayerMap.Num();
 }
 
-void UserManager::SetPlayerDefaultInfo(int32 key, float x, float y, float directionX, float directionY, int32 color)
+void UserManager::SetPlayerDefaultInfo( int32 key, float x, float y, float directionX, float directionY, int32 color )
 {
-	if ( PlayerMap.Find( key ) == nullptr)
+	if ( PlayerMap.Find( key ) == nullptr )
 		return;
 
 	AMiniGameCharacter* tempCharacter = PlayerMap[ key ];

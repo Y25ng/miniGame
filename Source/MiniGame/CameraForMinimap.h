@@ -23,21 +23,19 @@ class MINIGAME_API ACameraForMinimap : public AActor
 	
 private:
 	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = ( AllowPrivateAccess = "true" ) )
-		UCameraComponent* FollowCamera;
+	UCameraComponent* FollowCamera;
 
 	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = ( AllowPrivateAccess = "true" ) )
-		USceneCaptureComponent2D* SceneCaptureComponent;
+	USceneCaptureComponent2D* SceneCaptureComponent;
 
 public:	
 	// Sets default values for this actor's properties
 	ACameraForMinimap();
 
+	// Called every frame
+	virtual void Tick( float DeltaTime ) override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 };

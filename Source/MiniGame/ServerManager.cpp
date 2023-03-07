@@ -241,13 +241,40 @@ void ServerManager::ProcessPacket( char* packet )
         {
             UE_LOG( LogTemp, Error, TEXT( "%d" ), p.tileIndex );
         }
-    }
 
+        
+    }
     break;
+    case ServerToClient::COLLISION_PLAYER:
+    {
+        Packet::CollisionPlayer p = *reinterpret_cast< Packet::CollisionPlayer* >( packet );
+
+        for ( int i = 0; i < InitWorld::INGAMEPLAYER_NUM;  i++ )
+        {
+            if ( p.owners[ i ] == -1 )
+                continue;
+
+            int32 playerKey = p.owners[ i ];
+            UserManager::GetInstance().GetPlayerMap()[ playerKey ]->ApplyPlayerForces( p.owners );
+        }
+
+    }
+    break;
+    case ServerToClient::COLLISION_WALL:
+    {
+        Packet::CollisionWall p = *reinterpret_cast< Packet::CollisionWall* >( packet );
+
+        for ( int i = 0; i < InitWorld::INGAMEPLAYER_NUM; i++ )
+        {
+            int32 playerKey = p.owner;
+            UserManager::GetInstance().GetPlayerMap()[ playerKey ]->ApplyWallForces( p.wallNum );
+        }
+    }
+    break;
+
     default:
         break;
     }
-
 }
 
 // 현재 플레이어가 아닌 다른 플레이어 캐릭터들에 대한 정보 할당

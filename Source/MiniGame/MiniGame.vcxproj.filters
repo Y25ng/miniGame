@@ -48,12 +48,6 @@
     <ClInclude Include="..\..\Source\MiniGame\MiniGameGameMode.h">
       <Filter>Source\MiniGame</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\UserManager.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\UserManager.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\MiniGame\Character">
@@ -68,7 +62,10 @@
     <Filter Include="Source\MiniGame\Actor">
       <UniqueIdentifier>{e947123c-4574-4693-b14e-21df3aaefd1b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\MiniGame\Server">
+    <Filter Include="Source\MiniGame\Manager">
+      <UniqueIdentifier>{ea248025-0fe2-4a7a-b90d-fdca9f4843c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame\Define">
       <UniqueIdentifier>{22f12f71-e653-4d4d-8b35-b8b870084d68}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -83,9 +80,6 @@
       <Filter>Source\MiniGame\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MiniGame\MainUI.cpp">
-      <Filter>Source\MiniGame\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\MiniGame\UIManager.cpp">
       <Filter>Source\MiniGame\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MiniGame\BTTask_FindRandomLocation.cpp">
@@ -103,8 +97,20 @@
     <ClCompile Include="..\..\Source\MiniGame\Wall.cpp">
       <Filter>Source\MiniGame\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\LobbyBottom.cpp">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\UserManager.cpp">
+      <Filter>Source\MiniGame\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\ActorManager.cpp">
+      <Filter>Source\MiniGame\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\UIManager.cpp">
+      <Filter>Source\MiniGame\Manager</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MiniGame\ServerManager.cpp">
-      <Filter>Source\MiniGame\Server</Filter>
+      <Filter>Source\MiniGame\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,9 +124,6 @@
       <Filter>Source\MiniGame\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MiniGame\MainUI.h">
-      <Filter>Source\MiniGame\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\MiniGame\UIManager.h">
       <Filter>Source\MiniGame\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MiniGame\blackboard_keys.h">
@@ -141,11 +144,26 @@
     <ClInclude Include="..\..\Source\MiniGame\Wall.h">
       <Filter>Source\MiniGame\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\MiniGame\ServerManager.h">
-      <Filter>Source\MiniGame\Server</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\MiniGame\Protocol.h">
-      <Filter>Source\MiniGame\Server</Filter>
+      <Filter>Source\MiniGame\Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\LobbyBottom.h">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\UserManager.h">
+      <Filter>Source\MiniGame\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\ActorManager.h">
+      <Filter>Source\MiniGame\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\UIManager.h">
+      <Filter>Source\MiniGame\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\ServerManager.h">
+      <Filter>Source\MiniGame\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="InitDefine.h">
+      <Filter>Source\MiniGame\Define</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

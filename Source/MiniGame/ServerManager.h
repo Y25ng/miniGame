@@ -23,6 +23,7 @@ private:
 	FSocket* m_socket;
 	char m_buf[InitPacket::MAX_BUFFERSIZE];
 	unsigned char m_previousPacketSize;
+
 public:
 	static ServerManager& GetInstance()
 	{

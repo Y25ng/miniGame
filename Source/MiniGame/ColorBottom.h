@@ -24,20 +24,20 @@ class MINIGAME_API AColorBottom : public AActor
 	
 private:
 	// 현재 타일 색깔
-	UPROPERTY(VisibleAnywhere)
-		int32 m_CurrentColor;
+	UPROPERTY( VisibleAnywhere )
+	int32 m_CurrentColor;
 
 	// mesh
 	UPROPERTY( VisibleAnywhere )
-		UStaticMeshComponent* m_StaticMesh;
+	UStaticMeshComponent* m_StaticMesh;
 
 	// box 충돌체
 	UPROPERTY( VisibleAnywhere )
-		UBoxComponent* m_BoxCollision;
+	UBoxComponent* m_BoxCollision;
 
 	// matrial 컨테이너
 	UPROPERTY( VisibleAnywhere )
-		TMap< int32, UMaterial* > m_Material_Map;
+	TMap< int32, UMaterial* > m_Material_Map;
 
 	/*
 	// 타일이 올라가있는 상태인지 아닌지 여부를 할당받는 변수

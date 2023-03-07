@@ -20,12 +20,12 @@ class MINIGAME_API ALobbyBottom : public AActor
 	
 private:
 	// mesh
-	UPROPERTY(VisibleAnywhere)
-		UStaticMeshComponent* m_StaticMesh;
+	UPROPERTY( VisibleAnywhere )
+	UStaticMeshComponent* m_StaticMesh;
 
 	// box �浹ü
-	UPROPERTY(VisibleAnywhere)
-		UBoxComponent* m_BoxCollision;
+	UPROPERTY( VisibleAnywhere )
+	UBoxComponent* m_BoxCollision;
 
 public:	
 	// Sets default values for this actor's properties

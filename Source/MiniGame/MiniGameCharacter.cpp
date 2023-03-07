@@ -77,6 +77,21 @@ void AMiniGameCharacter::SetDefaultLocation( float x, float y )
 	SetActorLocation( targetLocation );
 }
 
+void AMiniGameCharacter::ApplyPlayerForces( int owners[] )
+{
+	for ( int i = 0; i < InitWorld::INGAMEPLAYER_NUM; ++i )
+	{
+		if ( owners[ i ] == -1 )
+			continue;
+	}
+}
+
+void AMiniGameCharacter::ApplyWallForces( const unsigned char wallIndex )
+{
+	FString DebugMessage = FString::Printf( TEXT( "%d" ), wallIndex );
+	GEngine->AddOnScreenDebugMessage( -1, 5.0f, FColor::Yellow, DebugMessage );
+}
+
 void AMiniGameCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -175,7 +190,6 @@ void AMiniGameCharacter::SetupPlayerInputComponent( class UInputComponent* Playe
 	PlayerInputComponent->BindAction( "ResetVR", IE_Pressed, this, &AMiniGameCharacter::OnResetVR );
 }
 
-
 void AMiniGameCharacter::NotifyActorBeginOverlap( AActor* OtherActor )
 {
 	AMiniGameCharacter* otherCharacter = nullptr;
@@ -186,6 +200,7 @@ void AMiniGameCharacter::NotifyHit( UPrimitiveComponent* MyComp, AActor* Other, 
 {
 	Super::NotifyHit( MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit );
 
+	/*
 	if ( Other->IsA( AWall::StaticClass() ) )
 	{
 		// 충돌 시간
@@ -232,6 +247,7 @@ void AMiniGameCharacter::NotifyHit( UPrimitiveComponent* MyComp, AActor* Other, 
 		FVector BounceForce = AwayFromOther * BounceForceMagnitude;
 		GetCharacterMovement()->AddImpulse( BounceForce, true );
 	}
+	*/
 }
 
 void AMiniGameCharacter::OnResetVR()

@@ -39,20 +39,19 @@ private:
 	UIManager();
 	~UIManager();
 
-	TMap<int32, FString > m_UIClassPath_Map;
+	// enum값을 key, WidgetBlueprint 경로를 Value로 저장
+	TMap<int32, FString > m_UIClassPath_Map; 
+
+	// enum값을 key, WidgetBlueprint 클래스와 WidgetBlueprint 포인터 객체를 pair 형태로 value로 저장
 	TMap<int32, std::pair< TSubclassOf< UUserWidget >, UUserWidget* > > m_UI_Map;
+
+	// 서버에서 전송해주는 게임 시간(단위: 초)
 	int32 m_GameTimeSec;
 
 public:
 
 	// key 값을 통해 원하는 Widget 반환
-	UUserWidget* GetWidget( int32 uiIndex )
-	{
-		if ( m_UI_Map.Find( uiIndex ) == false )
-			return nullptr;
-
-		return m_UI_Map[ uiIndex ].second;
-	}
+	UUserWidget* GetWidget( int32 uiIndex );
 
 	void SetGameTimeSec( unsigned char var ) { m_GameTimeSec = static_cast<int>( var ); }
 	int32 GetGameTimeSec() { return m_GameTimeSec; }

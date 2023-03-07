@@ -22,11 +22,11 @@ class MINIGAME_API AWall : public AActor
 private:
 	// mesh
 	UPROPERTY( VisibleAnywhere )
-		UStaticMeshComponent* m_StaticMesh;
+	UStaticMeshComponent* m_StaticMesh;
 
 	// box �浹ü
 	UPROPERTY(VisibleAnywhere)
-		UBoxComponent* m_BoxCollision;
+	UBoxComponent* m_BoxCollision;
 
 public:	
 	// Sets default values for this actor's properties
@@ -39,5 +39,4 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick( float DeltaTime ) override;
-
 };

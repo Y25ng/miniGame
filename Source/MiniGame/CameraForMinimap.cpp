@@ -28,4 +28,3 @@ void ACameraForMinimap::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
-
