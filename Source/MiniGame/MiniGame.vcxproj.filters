@@ -33,39 +33,6 @@
     <Filter Include="Source\MiniGame">
       <UniqueIdentifier>{8DF420AA-72E3-411D-975E-E2AA2D738E8E}</UniqueIdentifier>
     </Filter>
-    <ClInclude Include="..\..\Source\MiniGame\blackboard_keys.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\BTTask_FindRandomLocation.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\BTTask_FindRandomLocation.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\CameraForMinimap.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\CameraForMinimap.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\ColorBottom.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\ColorBottom.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\LogInUI.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\LogInUI.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\MainUI.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\MainUI.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
     <None Include="..\..\Source\MiniGame\MiniGame.Build.cs">
       <Filter>Source\MiniGame</Filter>
     </None>
@@ -75,43 +42,10 @@
     <ClInclude Include="..\..\Source\MiniGame\MiniGame.h">
       <Filter>Source\MiniGame</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\MiniGameAIController.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\MiniGameAIController.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\MiniGameBot.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\MiniGameBot.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\MiniGameCharacter.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\MiniGameCharacter.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\MiniGame\MiniGameGameMode.cpp">
       <Filter>Source\MiniGame</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\MiniGame\MiniGameGameMode.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\MiniGame\Protocol.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\ServerManager.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\ServerManager.h">
-      <Filter>Source\MiniGame</Filter>
-    </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\UIManager.cpp">
-      <Filter>Source\MiniGame</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\MiniGame\UIManager.h">
       <Filter>Source\MiniGame</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\MiniGame\UserManager.cpp">
@@ -120,11 +54,98 @@
     <ClInclude Include="..\..\Source\MiniGame\UserManager.h">
       <Filter>Source\MiniGame</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\MiniGame\Wall.cpp">
-      <Filter>Source\MiniGame</Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source\MiniGame\Character">
+      <UniqueIdentifier>{3e5417ec-906c-441d-a88c-2b02c7fba968}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame\UI">
+      <UniqueIdentifier>{57bd55a5-f972-4f06-8e4c-7ca49751e26c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame\AI">
+      <UniqueIdentifier>{6e67fcf7-6c49-44f4-8246-00d9407dc4c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame\Actor">
+      <UniqueIdentifier>{e947123c-4574-4693-b14e-21df3aaefd1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame\Server">
+      <UniqueIdentifier>{22f12f71-e653-4d4d-8b35-b8b870084d68}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Source\MiniGame\MiniGameBot.cpp">
+      <Filter>Source\MiniGame\Character</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\MiniGameCharacter.cpp">
+      <Filter>Source\MiniGame\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\LogInUI.cpp">
+      <Filter>Source\MiniGame\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\MainUI.cpp">
+      <Filter>Source\MiniGame\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\UIManager.cpp">
+      <Filter>Source\MiniGame\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\BTTask_FindRandomLocation.cpp">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\CameraForMinimap.cpp">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\ColorBottom.cpp">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\MiniGameAIController.cpp">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\Wall.cpp">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MiniGame\ServerManager.cpp">
+      <Filter>Source\MiniGame\Server</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Source\MiniGame\MiniGameBot.h">
+      <Filter>Source\MiniGame\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\MiniGameCharacter.h">
+      <Filter>Source\MiniGame\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\LogInUI.h">
+      <Filter>Source\MiniGame\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\MainUI.h">
+      <Filter>Source\MiniGame\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\UIManager.h">
+      <Filter>Source\MiniGame\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\blackboard_keys.h">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\BTTask_FindRandomLocation.h">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\CameraForMinimap.h">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\ColorBottom.h">
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\MiniGameAIController.h">
+      <Filter>Source\MiniGame\AI</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\MiniGame\Wall.h">
-      <Filter>Source\MiniGame</Filter>
+      <Filter>Source\MiniGame\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\ServerManager.h">
+      <Filter>Source\MiniGame\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\MiniGame\Protocol.h">
+      <Filter>Source\MiniGame\Server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

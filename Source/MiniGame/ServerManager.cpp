@@ -232,7 +232,7 @@ void ServerManager::ProcessPacket( char* packet )
     case ServerToClient::COLLISION_BLOCK:
     {
         Packet::CollisionTile p = *reinterpret_cast<Packet::CollisionTile*>( packet );
-        ActorManager::GetInstance().ChangeBottomColor( UserManager::GetInstance().GetCharacterColor(p.owner), p.tileIndex );
+        ActorManager::GetInstance().ChangeBottomColor( UserManager::GetInstance().GetCharacterColor( p.owner ), p.tileIndex );
     }
 
     break;

@@ -17,6 +17,7 @@ private:
 	~ActorManager();
 
 	AColorBottom* m_ColorBottom;
+	TMap< int32, AColorBottom* > m_BottomMap;
 
 public:
 
@@ -29,5 +30,7 @@ public:
 	void SetColorBottom( AColorBottom* var_ColorBottom ) { m_ColorBottom = var_ColorBottom; }
 	void ChangeBottomColor( int32 color, int32 tileIndex );
 	AColorBottom* GetColorBottom() { return m_ColorBottom; }
+
+	void PushBottom( int32 key, AColorBottom* bottom );
 
 };

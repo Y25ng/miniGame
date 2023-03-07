@@ -80,7 +80,7 @@ void AMiniGameCharacter::SetDefaultLocation( float x, float y )
 void AMiniGameCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-*
+
 	if ( NickName.ToString() == TEXT( "Default" ) ) // 플레이어가 조종할 캐릭터
 	{
 		ServerManager::GetInstance().SetCharacter( this );

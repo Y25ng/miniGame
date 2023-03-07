@@ -7,8 +7,9 @@
 #include "Protocol.h"
 
 
-#define SERVERIP "172.28.35.240" // ±Ë¡ˆ¿∫¥‘ IP
+// #define SERVERIP "172.28.35.240" // ±Ë¡ˆ¿∫¥‘ IP
 // #define SERVERIP "172.28.35.239" // 
+#define SERVERIP "192.168.0.9"
 // #define SERVERIP "192.168.0.24" // ¿”Ω√ IP
 #define SERVERPORT 9000
 

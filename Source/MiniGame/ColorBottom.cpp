@@ -92,6 +92,8 @@ void AColorBottom::BeginPlay()
 		m_CurrentColor = EColorNum::WHITE;
 	}
 
+	ActorManager::GetInstance().PushBottom( m_BottomNumber, this );
+
 	// m_OriginLocation = GetActorLocation();
 	// m_ElevateLocation = m_OriginLocation + FVector( 0.0f, 0.0f, 200.0f );
 }
